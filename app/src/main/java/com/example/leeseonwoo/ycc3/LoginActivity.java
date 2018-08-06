@@ -42,6 +42,23 @@ public class LoginActivity extends AppCompatActivity {
         final EditText PW = (EditText) findViewById(R.id.editText2);
         Button resetBtn = (Button)findViewById(R.id.btn_reset);
         final CheckBox checkBox = (CheckBox)findViewById(R.id.usinglogin);
+        Button findID = (Button)findViewById(R.id.findID);
+        Button findPW = (Button)findViewById(R.id.findPW);
+
+        findID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FindIDActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findPW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

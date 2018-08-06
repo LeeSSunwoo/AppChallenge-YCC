@@ -125,6 +125,8 @@ public class Main2Activity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_gallery) {
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
 
