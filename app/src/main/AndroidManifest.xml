@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +32,14 @@
         <activity
             android:name=".FindIDActivity"
             android:label="@string/title_activity_find_id"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FindPWActivity"
+            android:label="@string/title_activity_find_pw"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ResetpwActivity"
+            android:label="@string/title_activity_resetpw"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

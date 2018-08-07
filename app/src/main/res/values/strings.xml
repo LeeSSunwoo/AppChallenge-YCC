@@ -8,4 +8,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_myinfo">MyinfoActivity</string>
     <string name="title_activity_find_id">FindIDActivity</string>
+    <string name="title_activity_find_pw">FindPWActivity</string>
+    <string name="title_activity_resetpw">ResetpwActivity</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.leeseonwoo.ycc3;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -33,6 +34,15 @@ public class FindIDActivity extends AppCompatActivity {
         final EditText editBirth = (EditText)findViewById(R.id.birth);
         Button btn = (Button)findViewById(R.id.button);
         final TextView result = (TextView)findViewById(R.id.result);
+        Button btn2 = (Button)findViewById(R.id.button4);
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FindPWActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
