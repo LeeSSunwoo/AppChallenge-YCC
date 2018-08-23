@@ -8,4 +8,13 @@
     tools:context="com.example.leeseonwoo.ycc3.Main2Activity"
     tools:showIn="@layout/app_bar_main2">
 
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="@drawable/orange"
+        android:textSize="2sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

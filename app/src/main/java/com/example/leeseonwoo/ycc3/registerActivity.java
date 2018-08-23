@@ -3,8 +3,13 @@ package com.example.leeseonwoo.ycc3;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,6 +36,12 @@ public class registerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
+
+        int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
+        ActionBar bar = getSupportActionBar();
+        Spannable text = new SpannableString(bar.getTitle());
+        text.setSpan(new ForegroundColorSpan(colorText), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        bar.setTitle(text);
 
         ID = (EditText)findViewById(R.id.editText_ID);
         PW = (EditText)findViewById(R.id.editText_PW);

@@ -3,8 +3,13 @@ package com.example.leeseonwoo.ycc3;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,22 +24,20 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
+        setContentView(R.layout.activity_login);
+        int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
+        ActionBar bar = getSupportActionBar();
+        Spannable text = new SpannableString(bar.getTitle());
+        text.setSpan(new ForegroundColorSpan(colorText), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        bar.setTitle(text);
+
+        // 홈,화살표 버튼 색상 변경
+        //mToggle.getDrawerArrowDrawable().setColor(colorText);
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
         //Reset();
-        Cursor loginState = db.rawQuery("select * from UserDATA where Login = '"+true+"'",null);
-        if(loginState.getCount() == 1){
-            loginState.moveToFirst();
-            Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
-            intent.putExtra("gender", loginState.getInt(loginState.getColumnIndex("gender")));
-            intent.putExtra("name", loginState.getString(loginState.getColumnIndex("Name")));
-            intent.putExtra("email",loginState.getString(loginState.getColumnIndex("Email")));
-            intent.putExtra("ID",loginState.getString(loginState.getColumnIndex("ID")));
-            startActivity(intent);
-            finish();
-        }
+
 
         final Button login = (Button) findViewById(R.id.login_btn);
         Button register = (Button) findViewById(R.id.register_btn);

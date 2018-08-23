@@ -6,8 +6,13 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -21,6 +26,7 @@ public class MyinfoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back4);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -30,6 +36,12 @@ public class MyinfoActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
+        ActionBar bar = getSupportActionBar();
+        Spannable text = new SpannableString(bar.getTitle());
+        text.setSpan(new ForegroundColorSpan(colorText), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        bar.setTitle(text);
 
         Intent intent = getIntent();
 

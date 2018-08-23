@@ -1,5 +1,6 @@
 package com.example.leeseonwoo.ycc3;
 
+import android.content.ClipData;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
@@ -73,7 +74,10 @@ public class Main2Activity extends AppCompatActivity
         nickname.setText(name);
         email_text.setText(email_);
 
-
+        MenuItem item = (MenuItem)navigationView.getMenu().findItem(R.id.nav_logout);
+        if(ID.equals("unknown")) {
+            item.setTitle("로그인");
+        }
     }
 
     @Override
@@ -120,9 +124,14 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_info) {
-            intent = new Intent(getApplicationContext(), MyinfoActivity.class);
-            intent.putExtra("ID",ID);
-            startActivity(intent);
+            if(ID.equals("unknown")){
+                Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                intent = new Intent(getApplicationContext(), MyinfoActivity.class);
+                intent.putExtra("ID", ID);
+                startActivity(intent);
+            }
 
         } else if (id == R.id.nav_gallery) {
             intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -137,10 +146,14 @@ public class Main2Activity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.nav_logout){
-            db.execSQL("update UserDATA set Login = 'false' where ID = '"+ID+"'");
+            if(!ID.equals("unknown")) {
+                db.execSQL("update UserDATA set Login = 'false' where ID = '" + ID + "'");
+            }
+
             Intent toLogin = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(toLogin);
             finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
