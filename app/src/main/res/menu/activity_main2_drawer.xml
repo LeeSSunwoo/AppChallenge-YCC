@@ -9,21 +9,21 @@
             android:icon="@drawable/user"
             android:title="내 정보" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/k_food"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="블루투스 테스트" />
+            android:title="한식" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/u_food"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="양식" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/c_food"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="중식" />
         <item
-            android:id="@+id/nav_logout"
+            android:id="@+id/j_food"
             android:icon="@drawable/unlock"
-            android:title="로그아웃" />
+            android:title="일식" />
     </group>
 
     <item android:title="Communicate">
@@ -31,9 +31,9 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="블루투스 테스트" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send" />
         </menu>

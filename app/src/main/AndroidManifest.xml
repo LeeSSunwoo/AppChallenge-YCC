@@ -13,9 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity">
-
-        </activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".registerActivity" />
         <activity
             android:name=".Main2Activity"
@@ -37,7 +35,8 @@
             android:name=".ResetpwActivity"
             android:label="@string/title_activity_resetpw"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,6 +44,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".FoodListActivity"
+            android:label="@string/title_activity_food_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FoodActivity"
+            android:label="@string/title_activity_food"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

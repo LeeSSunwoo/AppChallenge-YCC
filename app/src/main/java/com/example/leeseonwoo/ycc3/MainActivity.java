@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnSend = findViewById(R.id.btnSend); //데이터 전송
         btnSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                bt.send(toBlue.getText().toString(), true);
+                bt.send(toBlue.getText().toString()+"\n", true);
             }
         });
     }

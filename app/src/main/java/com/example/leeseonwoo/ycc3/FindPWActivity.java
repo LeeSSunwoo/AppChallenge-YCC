@@ -31,7 +31,7 @@ public class FindPWActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back4);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
 
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
