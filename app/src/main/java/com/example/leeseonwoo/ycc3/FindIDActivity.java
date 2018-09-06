@@ -30,11 +30,11 @@ public class FindIDActivity extends AppCompatActivity {
         setContentView(R.layout.activity_find_id);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
+
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
         ActionBar bar = getSupportActionBar();
         Spannable text = new SpannableString(bar.getTitle());
@@ -78,6 +78,7 @@ public class FindIDActivity extends AppCompatActivity {
                     if(cursor.getCount() == 1){
                         String name = "당신의 아이디는 "+cursor.getString(cursor.getColumnIndex("ID"))+" 입니다.";
                         result.setText(name);
+                        cursor.close();
                     }
                     else Toast.makeText(FindIDActivity.this, "회원정보가 없습니다.", Toast.LENGTH_SHORT).show();
                 }

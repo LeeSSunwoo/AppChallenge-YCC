@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 if(message.charAt(0)=='-') {
                     message = "0";
                 }
-                textView.setText(String.valueOf(message));
+                textView.setText(message);
         }
         });
 

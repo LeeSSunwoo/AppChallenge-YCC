@@ -12,4 +12,6 @@
     <string name="title_activity_resetpw">ResetpwActivity</string>
     <string name="title_activity_food_list">FoodListActivity</string>
     <string name="title_activity_food">FoodActivity</string>
+    <string name="title_activity_recipe">RecipeActivity</string>
+    <string name="title_activity_result">ResultActivity</string>
 </resources>

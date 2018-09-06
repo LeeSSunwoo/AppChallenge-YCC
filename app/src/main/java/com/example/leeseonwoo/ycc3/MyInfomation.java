@@ -58,7 +58,7 @@ public class MyInfomation extends Fragment{
             gender.setText("여자");
         age.setText(cursor.getString(cursor.getColumnIndex("Number")));
         email.setText(cursor.getString(cursor.getColumnIndex("Email")));
-
+        cursor.close();
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

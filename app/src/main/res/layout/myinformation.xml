@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal">
 
     <TextView
         android:id="@+id/textView32"
@@ -15,14 +15,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="내 정보"
+        android:textColor="@android:color/holo_orange_dark"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,11 +35,13 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:text="내 이름  :"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
     <TextView
         android:id="@+id/name"
@@ -47,17 +51,18 @@
         android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
-        app:layout_constraintStart_toEndOf="@+id/textView8" />
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="성별  :"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
@@ -68,18 +73,19 @@
         android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView17"
-        app:layout_constraintStart_toEndOf="@+id/textView17" />
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="생년월일  :"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        tools:layout_editor_absoluteY="152dp"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/age"
@@ -89,18 +95,20 @@
         android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView19"
-        app:layout_constraintStart_toEndOf="@+id/textView19" />
+        app:layout_constraintStart_toEndOf="@+id/textView19"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="E-mail  :"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toBottomOf="@+id/textView19"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/email"
@@ -110,18 +118,20 @@
         android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView21"
-        app:layout_constraintStart_toEndOf="@+id/textView21" />
+        app:layout_constraintStart_toEndOf="@+id/textView21"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="28dp"
         android:text="비밀번호  :"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toBottomOf="@+id/textView21"
+        android:textColor="@android:color/black"/>
 
     <EditText
         android:id="@+id/editText4"
@@ -138,12 +148,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="비밀번호 확인"
+        android:text="비밀번호 확인 :"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/editText5"
         app:layout_constraintEnd_toStartOf="@+id/editText5"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="@android:color/black"/>
 
     <EditText
         android:id="@+id/editText5"
@@ -164,5 +173,19 @@
         android:text="비밀번호 변경"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="80dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="150dp" />
 
 </android.support.constraint.ConstraintLayout>

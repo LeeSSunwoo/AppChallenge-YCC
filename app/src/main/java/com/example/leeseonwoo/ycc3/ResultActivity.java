@@ -1,8 +1,6 @@
 package com.example.leeseonwoo.ycc3;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,18 +15,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class FoodListActivity extends AppCompatActivity {
-    DatabaseOpenHelper DBHelper;
-    SQLiteDatabase db;
+public class ResultActivity extends AppCompatActivity {
 
     CustomAdapter customAdapter = new CustomAdapter();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_list);
+        setContentView(R.layout.activity_result);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ListView listView = (ListView)findViewById(R.id.result_listview);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
@@ -36,20 +37,6 @@ public class FoodListActivity extends AppCompatActivity {
         Spannable text = new SpannableString(bar.getTitle());
         text.setSpan(new ForegroundColorSpan(colorText), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         bar.setTitle(text);
-        DBHelper = new DatabaseOpenHelper(getApplicationContext());
-        db = DBHelper.getWritableDatabase();
-        customAdapter.clear();
-        ListView listView = (ListView)findViewById(R.id.listview);
-        Intent food_type = getIntent();
-        String type = food_type.getStringExtra("type");
-
-        Cursor cursor = db.rawQuery("select * from FoodDATA where type = '"+type+"'",null);
-        for(int i = 0;i<cursor.getCount();i++){
-            cursor.moveToNext();
-            customAdapter.addItem(cursor.getInt(cursor.getColumnIndex("ImgID")),cursor.getString(cursor.getColumnIndex("food_name")));
-        }
-        customAdapter.notifyDataSetChanged();
-        listView.setAdapter(customAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,20 +47,29 @@ public class FoodListActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        String[] food_list = intent.getStringArrayExtra("food_name");
+        int[] img_list = intent.getIntArrayExtra("img_list");
+        for(int i = 0;i<food_list.length;i++){
+            customAdapter.addItem(img_list[i],food_list[i]);
+        }
+        customAdapter.notifyDataSetChanged();
+        listView.setAdapter(customAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ListViewItem item = (ListViewItem) adapterView.getItemAtPosition(i);
-                Intent intent = new Intent(getApplicationContext(), FoodActivity.class);
-                intent.putExtra("food_name",item.getFood_name());
-                startActivity(intent);
+                Intent intent1 = new Intent(getApplicationContext(),FoodActivity.class);
+                intent1.putExtra("food_name",item.getFood_name());
+                startActivity(intent1);
             }
         });
+
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case android.R.id.home:{
-                customAdapter.clear();//toolbar의 back키 눌렀을 때 동작
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
                 finish();
                 return true;
             }

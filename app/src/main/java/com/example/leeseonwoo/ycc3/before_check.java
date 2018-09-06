@@ -52,6 +52,7 @@ public class before_check extends Fragment{
                 else{
                     Toast.makeText(getContext(),"비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                 }
+                cursor.close();
             }
         });
 

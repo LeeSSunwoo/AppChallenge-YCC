@@ -69,6 +69,7 @@ public class FindPWActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), ResetpwActivity.class);
                         intent.putExtra("id", id);
                         startActivity(intent);
+                        cursor.close();
                         finish();
                     }
                     else Toast.makeText(FindPWActivity.this, "일치하는 회원정보가 없습니다.", Toast.LENGTH_SHORT).show();

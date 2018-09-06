@@ -10,19 +10,19 @@
             android:title="내 정보" />
         <item
             android:id="@+id/k_food"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ko_food"
             android:title="한식" />
         <item
             android:id="@+id/u_food"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/us_food"
             android:title="양식" />
         <item
             android:id="@+id/c_food"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ch_food"
             android:title="중식" />
         <item
             android:id="@+id/j_food"
-            android:icon="@drawable/unlock"
+            android:icon="@drawable/jp_food"
             android:title="일식" />
     </group>
 
