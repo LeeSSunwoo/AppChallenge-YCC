@@ -41,7 +41,7 @@ public class before_check extends Fragment{
                 Cursor cursor = db.rawQuery("select ID from UserDATA where Password = '"+PW+"'", null);
                 cursor.moveToFirst();
                 if(ID.equals(cursor.getString(cursor.getColumnIndex("ID")))){
-                    Fragment fragment = new MyInfomation();
+                    Fragment fragment = new EditData();
                     Bundle bundle = new Bundle();
                     bundle.putString("ID",ID);
                     fragment.setArguments(bundle);

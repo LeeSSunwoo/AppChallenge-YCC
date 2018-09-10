@@ -22,7 +22,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable1 = "create table "+TABLE_NAME1+" (_id integer PRIMARY KEY autoincrement, ID text, Password text, Name text, Number text, Email text, gender integer, Login text);";
+        String createTable1 = "create table "+TABLE_NAME1+" (_id integer PRIMARY KEY autoincrement, ID text, Password text, Name text, Number text, gender integer, Login text);";
         String createTable2 = "CREATE TABLE FoodDATA (_id integer PRIMARY KEY autoincrement," + "  type varchar(2) DEFAULT NULL," + "  food_name varchar(8) DEFAULT NULL," + "  amount varchar(3) DEFAULT NULL," + "  material varchar(299) DEFAULT NULL," + "  process varchar(569) DEFAULT NULL" + ",ImgID bigint);";
         try{
             db.execSQL(createTable1);

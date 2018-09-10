@@ -25,10 +25,10 @@ public class registerActivity extends AppCompatActivity {
     SQLiteDatabase db;
     RadioButton man, woman;
     boolean check = false;
-    String id, email2,email1;
+    String id;
     public static final int MAN = R.drawable.man;
     public static final int WOMAN = R.drawable.woman;
-    EditText ID, PW, PW2, name, num, Email;
+    EditText ID, PW, PW2, name, num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,25 +52,10 @@ public class registerActivity extends AppCompatActivity {
         woman = (RadioButton)findViewById(R.id.radioButton2);
         Button overlap = (Button)findViewById(R.id.btn_check);
         Button submit = (Button)findViewById(R.id.btn_submit);
-        Email = (EditText)findViewById(R.id.editText_Email);
-        Spinner spinner = (Spinner)findViewById(R.id.spinner);
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.mail));
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                email2 = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         overlap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +84,8 @@ public class registerActivity extends AppCompatActivity {
                 String pw2 = PW2.getText().toString();
                 String Name = name.getText().toString();
                 String Num = num.getText().toString();
-                String email = Email.getText().toString();
-                Log.d("현재 회원 정보", id+", "+pw+", "+Name+", "+Num+", "+email);
+
+                Log.d("현재 회원 정보", id+", "+pw+", "+Name+", "+Num);
                 boolean pwCheck = false;
                 int gender = 0;
                 if(check){}
@@ -134,19 +119,13 @@ public class registerActivity extends AppCompatActivity {
                     if (man.isChecked()) gender = MAN;
                     if (woman.isChecked()) gender = WOMAN;
                 }
-                if(!email.isEmpty()){
-                    email1 = email+"@"+email2;
-                }
-                else{
-                    Toast.makeText(registerActivity.this, "이메일을 확인해주세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
                 if(Num.isEmpty()){
                     Toast.makeText(registerActivity.this, "생년월일을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                db.execSQL("insert into UserDATA (ID, Password, Name, Number, Email, gender, Login) values('"+id+"', '"+pw+"', '"+Name+"', '"+Num+"', '"+email1+"', "+gender+", '"+false+"');");
-                Log.w("add data","db 추가됨  : '"+id+"', '"+pw+"', '"+Name+"', '"+Num+"', '"+email1+"', "+gender+", '"+false+"'");
+                db.execSQL("insert into UserDATA (ID, Password, Name, Number, gender, Login) values('"+id+"', '"+pw+"', '"+Name+"', '"+Num+"', "+gender+", '"+false+"');");
+                Log.w("add data","db 추가됨  : '"+id+"', '"+pw+"', '"+Name+"', '"+Num+"', '"+gender+", '"+false+"'");
                 finish();
             }
         });

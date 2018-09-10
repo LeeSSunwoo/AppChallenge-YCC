@@ -35,16 +35,14 @@ public class SplashActivity extends AppCompatActivity {
                     intent1 = new Intent(getApplicationContext(), Main2Activity.class);
                     intent1.putExtra("gender", loginState.getInt(loginState.getColumnIndex("gender")));
                     intent1.putExtra("name", loginState.getString(loginState.getColumnIndex("Name")));
-                    intent1.putExtra("email",loginState.getString(loginState.getColumnIndex("Email")));
                     intent1.putExtra("ID",loginState.getString(loginState.getColumnIndex("ID")));
                     Log.d("sended data : ",String.valueOf(loginState.getInt(loginState.getColumnIndex("gender")))+" "+loginState.getString(loginState.getColumnIndex("Name"))
-                    +" "+loginState.getString(loginState.getColumnIndex("Email"))+" "+loginState.getString(loginState.getColumnIndex("ID")));
+                    +loginState.getString(loginState.getColumnIndex("ID")));
                     startActivity(intent1);
                     finish();
                 }
                 else{intent1.putExtra("gender", R.drawable.user);
                 intent1.putExtra("name", "새로운 요리사");
-                intent1.putExtra("email", "로그인이 필요합니다.");
                 intent1.putExtra("ID","unknown");
                 startActivity(intent1);
                 finish();}

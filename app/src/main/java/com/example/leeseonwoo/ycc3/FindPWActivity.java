@@ -43,7 +43,6 @@ public class FindPWActivity extends AppCompatActivity {
         bar.setTitle(text);
 
         final EditText edit_id = (EditText)findViewById(R.id.edit_ID);
-        final EditText edit_email = (EditText)findViewById(R.id.edit_email);
         final EditText edit_birth = (EditText)findViewById(R.id.edit_birth);
         Button btn = (Button)findViewById(R.id.find_id);
         Button btn_sub = (Button)findViewById(R.id.submit);
@@ -60,10 +59,9 @@ public class FindPWActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String id = edit_id.getText().toString();
-                String email = edit_email.getText().toString();
                 String birth = edit_birth.getText().toString();
-                if(!id.isEmpty() && !email.isEmpty() && !birth.isEmpty()) {
-                    Cursor cursor = db.rawQuery("select * from UserDATA where ID = '"+id+"' and Email = '"+email+"' and Number = '"+birth+"'",null);
+                if(!id.isEmpty() && !birth.isEmpty()) {
+                    Cursor cursor = db.rawQuery("select * from UserDATA where ID = '"+id+"'and Number = '"+birth+"'",null);
                     cursor.moveToFirst();
                     if(cursor.getCount()==1) {
                         Intent intent = new Intent(getApplicationContext(), ResetpwActivity.class);
@@ -76,15 +74,6 @@ public class FindPWActivity extends AppCompatActivity {
                 }
                 else
                     Toast.makeText(FindPWActivity.this, "내용을 전부 기입해주세요.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
     }

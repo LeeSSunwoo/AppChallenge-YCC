@@ -43,7 +43,7 @@ public class FoodListActivity extends AppCompatActivity {
         Intent food_type = getIntent();
         String type = food_type.getStringExtra("type");
 
-        Cursor cursor = db.rawQuery("select * from FoodDATA where type = '"+type+"'",null);
+        Cursor cursor = db.rawQuery("select * from FoodDATA where type like '%"+type+"%'",null);
         for(int i = 0;i<cursor.getCount();i++){
             cursor.moveToNext();
             customAdapter.addItem(cursor.getInt(cursor.getColumnIndex("ImgID")),cursor.getString(cursor.getColumnIndex("food_name")));

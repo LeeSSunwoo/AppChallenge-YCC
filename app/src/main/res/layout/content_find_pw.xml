@@ -16,6 +16,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:text="비밀번호 찾기"
+        android:textColor="@android:color/holo_orange_dark"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,17 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="아이디 :"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/edit_ID"
-        app:layout_constraintEnd_toEndOf="@+id/textView27" />
-
-    <TextView
-        android:id="@+id/textView27"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="이메일 :"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/edit_email"
         app:layout_constraintEnd_toEndOf="@+id/textView28" />
 
     <android.support.constraint.Guideline
@@ -67,22 +60,13 @@
         app:layout_constraintStart_toEndOf="@+id/textView26"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-    <EditText
-        android:id="@+id/edit_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/edit_ID"
-        app:layout_constraintTop_toBottomOf="@+id/edit_ID" />
-
     <TextView
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="생년월일 :"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/edit_birth"
         app:layout_constraintStart_toStartOf="@+id/guideline3" />
@@ -94,8 +78,8 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/edit_email"
-        app:layout_constraintTop_toBottomOf="@+id/edit_email" />
+        app:layout_constraintEnd_toEndOf="@+id/edit_ID"
+        app:layout_constraintTop_toBottomOf="@+id/edit_ID" />
 
     <Button
         android:id="@+id/submit"

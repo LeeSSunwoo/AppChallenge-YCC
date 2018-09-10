@@ -41,8 +41,7 @@ public class FindIDActivity extends AppCompatActivity {
         text.setSpan(new ForegroundColorSpan(colorText), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         bar.setTitle(text);
 
-        final EditText editName = (EditText)findViewById(R.id.name);
-        final EditText editEmail = (EditText)findViewById(R.id.email);
+        final EditText editName = (EditText)findViewById(R.id.name_edit);
         final EditText editBirth = (EditText)findViewById(R.id.birth);
         Button btn = (Button)findViewById(R.id.button);
         final TextView result = (TextView)findViewById(R.id.result);
@@ -56,24 +55,13 @@ public class FindIDActivity extends AppCompatActivity {
             }
         });
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String _name = editName.getText().toString();
-                String email = editEmail.getText().toString();
                 String number = editBirth.getText().toString();
-                if(!_name.isEmpty() && !email.isEmpty() && !number.isEmpty()){
-                    Cursor cursor = db.rawQuery("select * from UserDATA where Name = '"+_name+"'and Number = '"+number+"'and Email = '"+email+"'",null);
+                if(!_name.isEmpty() && !number.isEmpty()){
+                    Cursor cursor = db.rawQuery("select * from UserDATA where Name = '"+_name+"'and Number = '"+number+"'",null);
                     cursor.moveToFirst();
                     if(cursor.getCount() == 1){
                         String name = "당신의 아이디는 "+cursor.getString(cursor.getColumnIndex("ID"))+" 입니다.";

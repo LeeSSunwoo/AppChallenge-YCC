@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                         intent.putExtra("gender", cursor.getInt(cursor.getColumnIndex("gender")));
                         intent.putExtra("name", cursor.getString(cursor.getColumnIndex("Name")));
-                        intent.putExtra("email",cursor.getString(cursor.getColumnIndex("Email")));
+
                         intent.putExtra("ID",cursor.getString(cursor.getColumnIndex("ID")));
                         db.execSQL("update UserDATA set Login = '"+String.valueOf(checkBox.isChecked())+"' where ID = '"+id+"'");
                         startActivity(intent);
@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
     public void Reset(){
         db.execSQL("drop table UserDATA");
         db.execSQL("drop table FoodDATA");
-        db.execSQL("create table UserDATA (_id integer PRIMARY KEY autoincrement, ID text, Password text, Name text, Number text, Email text, gender integer, Login text);");
+        db.execSQL("create table UserDATA (_id integer PRIMARY KEY autoincrement, ID text, Password text, Name text, Number text, gender integer, Login text);");
         db.execSQL("CREATE TABLE FoodDATA (_id integer PRIMARY KEY autoincrement," + "  type varchar(2) DEFAULT NULL," + "  food_name varchar(8) DEFAULT NULL," + "  amount varchar(3) DEFAULT NULL," + "  material varchar(299) DEFAULT NULL," + "  process varchar(569) DEFAULT NULL" + ",ImgID bigint);");
         db.execSQL("INSERT INTO FoodDATA (type, food_name, amount, material, process, ImgID) VALUES\n" +
                 "('한식', '잡채', '4인분', '당면 100g, 돼지고기(돼지고기 등심) 50g, 시금치 80g, 표고버섯 1개(30g), 당근 1/5개(40g), 양파 1/6개(30g), (양념) 식용유 1큰술(15ml), 깨 1작은술(3g), 소금 약간, 시금치 양념(참기름 약간, 소금 약간), 돼지고기 양념(간장 1큰술(15g), 설탕 1작은술(3g), 참기름 약간, 대파(다진 대파) 1/2작은술(2g), 마늘(다진 마늘) 1/2작은술(2g), 청주 1작은술(5ml), 후춧가루(후춧가루 약간)), 당면 양념(간장 1큰술(15ml), 설탕 1/2큰술(5g), 참기름 약간)\\n', '1. 당면은 찬물에 1시간 정도 불린다. 끓는 물에 당면을 넣고 2분간 삶은 후 체에 밭쳐 물기를 뺀다. 돼지고기는 돼지고기 양념에 버무린 후 10분간 재운다.\n2. 시금치는 끓는 소금물에 담가 데친 후 물기를 꼭 짠 후 소금, 참기름에 무친다.\n3. 양파, 당근, 표고버섯은 5cm길이로 가늘게 채 썬다. 달군 팬에 식용유를 두르고 양파, 당근, 표고버섯을 넣고 소금을 약간 넣어 볶아 접시에 덜어둔다. 돼지고기는 달군 팬에 식용유를 두르고 볶는다.\n4. 팬에 당면 양념 재료와 당면을 넣고 양념이 졸아들 때까지 볶는다.\n5. 양파, 당근, 표고버섯, 돼지고기, 시금치를 함께 넣고 볶은 후 깨를 뿌린다.',"+R.drawable.japche+"),\n" +

@@ -70,7 +70,10 @@ public class RecipeActivity extends AppCompatActivity {
         btn_timer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                frameLayout.setVisibility(View.VISIBLE);
+                if(frameLayout.getVisibility() == View.INVISIBLE)
+                    frameLayout.setVisibility(View.VISIBLE);
+                else
+                    frameLayout.setVisibility(View.INVISIBLE);
             }
         });
 

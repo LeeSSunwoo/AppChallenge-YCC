@@ -28,15 +28,6 @@ public class MyinfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
         ActionBar bar = getSupportActionBar();
         Spannable text = new SpannableString(bar.getTitle());
@@ -47,7 +38,7 @@ public class MyinfoActivity extends AppCompatActivity {
 
         String ID = intent.getExtras().getString("ID");
 
-        Fragment fragment = new before_check();
+        Fragment fragment = new MyInfomation();
         Bundle bundle = new Bundle();
         bundle.putString("ID",ID);
         fragment.setArguments(bundle);
