@@ -5,17 +5,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,12 +22,17 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import static android.speech.tts.TextToSpeech.ERROR;
+
+
+import java.util.Locale;
 
 public class RecipeActivity extends AppCompatActivity {
     DatabaseOpenHelper DBHelper;
     SQLiteDatabase db;
     CountDownTimer countDownTimer;
     TextView timeo;
+    private TextToSpeech tts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,16 @@ public class RecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe);
         TextView textView = (TextView)findViewById(R.id.textView38);
         textView.setText(ss[num]);
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != ERROR) {
+                    // 언어를 선택한다.
+                    tts.setLanguage(Locale.KOREAN);
+                }
+            }
+        });
+        tts.speak(ss[num],TextToSpeech.QUEUE_FLUSH,null);
         Button btn = (Button)findViewById(R.id.button6);
         final EditText time = (EditText)findViewById(R.id.editText8);
         timeo = (TextView)findViewById(R.id.textView40);

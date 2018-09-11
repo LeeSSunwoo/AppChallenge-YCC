@@ -50,8 +50,9 @@ public class ResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String[] food_list = intent.getStringArrayExtra("food_name");
         int[] img_list = intent.getIntArrayExtra("img_list");
+        String ID = intent.getStringExtra("ID");
         for(int i = 0;i<food_list.length;i++){
-            customAdapter.addItem(img_list[i],food_list[i]);
+            customAdapter.addItem(img_list[i],food_list[i],ID);
         }
         customAdapter.notifyDataSetChanged();
         listView.setAdapter(customAdapter);

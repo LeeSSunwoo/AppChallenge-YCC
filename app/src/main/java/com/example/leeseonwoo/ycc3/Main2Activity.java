@@ -75,6 +75,7 @@ public class Main2Activity extends AppCompatActivity
         ImageView imageView = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.imageView);
         nickname = (TextView) navigationView.getHeaderView(0).findViewById(R.id.name_edit2);
         TextView email_text = (TextView)navigationView.getHeaderView(0).findViewById(R.id.textView);
+        ImageView login_nav = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.nav_login);
         intent = getIntent();
 
         int gender = intent.getExtras().getInt("gender");
@@ -97,15 +98,30 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
+        login_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //if(ID.equals("unknown")){
+                    Intent intent_login = new Intent(getApplicationContext(),LoginActivity.class);
+                    startActivity(intent_login);
+                    finish();
+                //}else{
+
+                //}
+            }
+        });
+
         MenuItem item = (MenuItem)navigationView.getMenu().findItem(R.id.nav_logout);
         if(ID.equals("unknown")) {
             item.setTitle("로그인");
             item.setIcon(R.drawable.lock);
+            login_nav.setImageResource(R.drawable.lock);
             email_text.setText("로그인이 필요합니다.");
         }
         else{
             item.setTitle("로그아웃");
             item.setIcon(R.drawable.unlock);
+            login_nav.setImageResource(R.drawable.unlock);
             email_text.setText("");
         }
         Random random = new Random();
@@ -123,7 +139,7 @@ public class Main2Activity extends AppCompatActivity
         for (int i = 0;i<5;i++) {
             Cursor cursor_rand = db.rawQuery("select * from FoodDATA where _id = "+String.valueOf(random1[i]),null);
             cursor_rand.moveToFirst();
-            customAdapter.addItem(cursor_rand.getInt(cursor_rand.getColumnIndex("ImgID")),cursor_rand.getString(cursor_rand.getColumnIndex("food_name")));
+            customAdapter.addItem(cursor_rand.getInt(cursor_rand.getColumnIndex("ImgID")),cursor_rand.getString(cursor_rand.getColumnIndex("food_name")),ID);
         }
         customAdapter.notifyDataSetChanged();
         gridView.setAdapter(customAdapter);
@@ -172,6 +188,7 @@ public class Main2Activity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
             intent.putExtra("food_name",food_list);
             intent.putExtra("img_list",img_list);
+            intent.putExtra("ID",ID);
             startActivity(intent);
             searchView.setQuery("",false);
             searchView.setIconified(true);
@@ -189,6 +206,8 @@ public class Main2Activity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+            searchView.setQuery("",false);
+            searchView.setIconified(true);
         } else {
             super.onBackPressed();
         }
@@ -230,30 +249,41 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_info) {
-            if(ID.equals("unknown")){
+            if (ID.equals("unknown")) {
                 Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 intent = new Intent(getApplicationContext(), MyinfoActivity.class);
                 intent.putExtra("ID", ID);
                 startActivity(intent);
             }
-
+        } else if (id == R.id.nav_book) {
+            if (ID.equals("unknown")) {
+                Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent food_info = new Intent(getApplicationContext(), FoodListActivity.class);
+                food_info.putExtra("type", "즐찾");
+                food_info.putExtra("ID", ID);
+                startActivity(food_info);
+            }
         } else if (id == R.id.k_food) {
             Intent food_info = new Intent(getApplicationContext(),FoodListActivity.class);
             food_info.putExtra("type","한식");
+            food_info.putExtra("ID",ID);
             startActivity(food_info);
         } else if (id == R.id.u_food) {
             Intent food_info = new Intent(getApplicationContext(),FoodListActivity.class);
             food_info.putExtra("type","양식");
+            food_info.putExtra("ID",ID);
             startActivity(food_info);
         } else if (id == R.id.c_food) {
             Intent food_info = new Intent(getApplicationContext(),FoodListActivity.class);
             food_info.putExtra("type","중식");
+            food_info.putExtra("ID",ID);
             startActivity(food_info);
         } else if (id == R.id.j_food) {
             Intent food_info = new Intent(getApplicationContext(),FoodListActivity.class);
             food_info.putExtra("type","일식");
+            food_info.putExtra("ID",ID);
             startActivity(food_info);
         } else if (id == R.id.nav_share) {
             Intent bt = new Intent(getApplicationContext(),MainActivity.class);
@@ -279,6 +309,8 @@ public class Main2Activity extends AppCompatActivity
         db.execSQL("drop table FoodDATA");
         db.execSQL("create table UserDATA (_id integer PRIMARY KEY autoincrement, ID text, Password text, Name text, Number text, gender integer, Login text);");
         db.execSQL("CREATE TABLE FoodDATA (_id integer PRIMARY KEY autoincrement," + "  type varchar(2) DEFAULT NULL," + "  food_name varchar(8) DEFAULT NULL," + "  amount varchar(3) DEFAULT NULL," + "  material varchar(299) DEFAULT NULL," + "  process varchar(569) DEFAULT NULL" + ",ImgID bigint);");
+        db.execSQL("drop table Bookmark");
+        db.execSQL("create table Bookmark (_id integer PRIMARY KEY autoincrement, ID text, food_name text, ImgID bigint)");
         db.execSQL("INSERT INTO FoodDATA (type, food_name, amount, material, process, ImgID) VALUES\n" +
                 "('한식,면', '잡채', '4인분', '당면 100g, 돼지고기(돼지고기 등심) 50g, 시금치 80g, 표고버섯 1개(30g), 당근 1/5개(40g), 양파 1/6개(30g), (양념) 식용유 1큰술(15ml), 깨 1작은술(3g), 소금 약간, 시금치 양념(참기름 약간, 소금 약간), 돼지고기 양념(간장 1큰술(15g), 설탕 1작은술(3g), 참기름 약간, 대파(다진 대파) 1/2작은술(2g), 마늘(다진 마늘) 1/2작은술(2g), 청주 1작은술(5ml), 후춧가루(후춧가루 약간)), 당면 양념(간장 1큰술(15ml), 설탕 1/2큰술(5g), 참기름 약간)\\n', '1. 당면은 찬물에 1시간 정도 불린다. 끓는 물에 당면을 넣고 2분간 삶은 후 체에 밭쳐 물기를 뺀다. 돼지고기는 돼지고기 양념에 버무린 후 10분간 재운다.\n2. 시금치는 끓는 소금물에 담가 데친 후 물기를 꼭 짠 후 소금, 참기름에 무친다.\n3. 양파, 당근, 표고버섯은 5cm길이로 가늘게 채 썬다. 달군 팬에 식용유를 두르고 양파, 당근, 표고버섯을 넣고 소금을 약간 넣어 볶아 접시에 덜어둔다. 돼지고기는 달군 팬에 식용유를 두르고 볶는다.\n4. 팬에 당면 양념 재료와 당면을 넣고 양념이 졸아들 때까지 볶는다.\n5. 양파, 당근, 표고버섯, 돼지고기, 시금치를 함께 넣고 볶은 후 깨를 뿌린다.',"+R.drawable.japche+"),\n" +
                 "('한식', '불고기', '4인분', '소고기(등심 또는 안심) 500g, 양파 200g(2개), 대파 20g(1대), 팽이버섯 50g, 곁들임 채소(상추외 잎채소 100g, 풋고추 2개, 깐마늘 5쪽), 쌈장 42g(2TS), 불고기 양념장: 간장 72g(4TS), 후춧가루 0.6g(1/4ts), 배즙 30g(2TS), 생강즙 16g(1TS), 설탕 48g(4TS), 물엿 38g(2TS), 다진 파 14g(1TS), 다진 마늘 8g(1/2TS), 깨소금 3g(1/2TS), 참기름 13g(1TS)', '1. 소고기는 등심이나 안심의 연한 부분을 골라 얇게 썰어 준비한다.\n2. 소고기를 배즙과 설탕, 생강즙에 버무려 재어 놓은 다음, 나머지 양념 재료를 넣고 간이 고루 베게 주물러 30분 이상 재어 둔다.\n3. 대파는 0.5cm 두께로 어슷 썰고, 양파는 0.3cm 두께로 채 썬다. 팽이버섯은 밑동을 잘라 준비한다.\n4. 뜨겁게 달군 팬에 고기와 준비한 채소를 넣고 볶는다.\n5. 곁들임 채소(상추, 깻잎 등의 잎 채소, 풋고추, 마늘)를 준비하여 쌈장과 함께 곁들인다.',"+R.drawable.bulgogi+"),\n" +
@@ -305,6 +337,7 @@ public class Main2Activity extends AppCompatActivity
             if (!nickname.getText().toString().equals(name)) {
                 nickname.setText(name);
             }
+            customAdapter.notifyDataSetChanged();
         }
     }
 }

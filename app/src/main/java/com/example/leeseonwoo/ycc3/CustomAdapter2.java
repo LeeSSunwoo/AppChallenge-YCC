@@ -12,12 +12,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomAdapter extends BaseAdapter{
+public class CustomAdapter2 extends BaseAdapter{
     List<ListViewItem> listViewItemList = new ArrayList<>();
     DatabaseOpenHelper DBHelper;
     SQLiteDatabase db;
@@ -59,13 +57,13 @@ public class CustomAdapter extends BaseAdapter{
         if(view==null){
             LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            view = inflater.inflate(R.layout.listview_item, viewGroup, false);
+            view = inflater.inflate(R.layout.gridviewitem, viewGroup, false);
         }
 
         //현재 선택된 View에 연결되는 객체 생성
-        ImageView food_image = (ImageView)view.findViewById(R.id.food_image);
-        TextView food_name = (TextView)view.findViewById(R.id.food_name);
-        final ImageView book_mark = (ImageView)view.findViewById(R.id.book_mark);
+        ImageView food_image = (ImageView)view.findViewById(R.id.imageView5);
+        TextView food_name = (TextView)view.findViewById(R.id.textView4);
+        final ImageView book_mark = (ImageView)view.findViewById(R.id.book_mark1);
         GradientDrawable drawable = (GradientDrawable) context.getDrawable(R.drawable.layout_bg);
         food_image.setBackground(drawable);
         food_image.setClipToOutline(true);
@@ -89,12 +87,9 @@ public class CustomAdapter extends BaseAdapter{
                     db.execSQL("delete from Bookmark where ID = '"+item.getID()+"' and food_name = '"+item.getFood_name()+"'");
                     book_mark.setImageResource(R.drawable.btn_star_off);
                 }
-                else if(!item.getID().equals("unknown")){
+                else {
                     db.execSQL("insert into Bookmark (ID, food_name, ImgID) VALUES ('"+item.getID()+"', '"+item.getFood_name()+"', "+item.getFood_image()+")");
                     book_mark.setImageResource(R.drawable.btn_star_on);
-                }
-                else {
-                    Toast.makeText(context, "즐겨찾기를 하려면 로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
                 }
                 cursor.close();
             }

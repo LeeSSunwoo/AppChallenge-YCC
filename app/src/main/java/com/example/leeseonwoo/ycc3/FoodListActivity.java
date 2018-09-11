@@ -16,13 +16,14 @@ import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.GridView;
+
 
 public class FoodListActivity extends AppCompatActivity {
     DatabaseOpenHelper DBHelper;
     SQLiteDatabase db;
 
-    CustomAdapter customAdapter = new CustomAdapter();
+    CustomAdapter2 customAdapter = new CustomAdapter2();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,18 +40,29 @@ public class FoodListActivity extends AppCompatActivity {
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
         customAdapter.clear();
-        ListView listView = (ListView)findViewById(R.id.listview);
+        GridView listView = (GridView)findViewById(R.id.listview);
         Intent food_type = getIntent();
         String type = food_type.getStringExtra("type");
-
-        Cursor cursor = db.rawQuery("select * from FoodDATA where type like '%"+type+"%'",null);
-        for(int i = 0;i<cursor.getCount();i++){
-            cursor.moveToNext();
-            customAdapter.addItem(cursor.getInt(cursor.getColumnIndex("ImgID")),cursor.getString(cursor.getColumnIndex("food_name")));
+        String ID = food_type.getStringExtra("ID");
+        Cursor cursor;
+        if(type.equals("즐찾")) {
+            //toolbar.setTitle("내 즐겨찾기");
+            cursor = db.rawQuery("select * from Bookmark where ID = '"+ID+"'",null);
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToNext();
+                customAdapter.addItem(cursor.getInt(cursor.getColumnIndex("ImgID")), cursor.getString(cursor.getColumnIndex("food_name")), ID);
+            }
+        }else{
+            cursor = db.rawQuery("select * from FoodDATA where type like '%" + type + "%'", null);
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToNext();
+                customAdapter.addItem(cursor.getInt(cursor.getColumnIndex("ImgID")), cursor.getString(cursor.getColumnIndex("food_name")), ID);
+            }
         }
+
         customAdapter.notifyDataSetChanged();
         listView.setAdapter(customAdapter);
-
+        cursor.close();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

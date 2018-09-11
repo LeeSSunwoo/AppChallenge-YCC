@@ -124,6 +124,10 @@ public class registerActivity extends AppCompatActivity {
                     Toast.makeText(registerActivity.this, "생년월일을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(!id.equals(ID.getText().toString())){
+                    Toast.makeText(registerActivity.this, "아이디 중복확인을 다시 해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 db.execSQL("insert into UserDATA (ID, Password, Name, Number, gender, Login) values('"+id+"', '"+pw+"', '"+Name+"', '"+Num+"', "+gender+", '"+false+"');");
                 Log.w("add data","db 추가됨  : '"+id+"', '"+pw+"', '"+Name+"', '"+Num+"', '"+gender+", '"+false+"'");
                 finish();
