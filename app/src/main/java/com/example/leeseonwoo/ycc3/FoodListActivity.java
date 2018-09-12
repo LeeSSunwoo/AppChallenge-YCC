@@ -45,6 +45,7 @@ public class FoodListActivity extends AppCompatActivity {
         String type = food_type.getStringExtra("type");
         String ID = food_type.getStringExtra("ID");
         Cursor cursor;
+
         if(type.equals("즐찾")) {
             //toolbar.setTitle("내 즐겨찾기");
             cursor = db.rawQuery("select * from Bookmark where ID = '"+ID+"'",null);
@@ -53,7 +54,12 @@ public class FoodListActivity extends AppCompatActivity {
                 customAdapter.addItem(cursor.getInt(cursor.getColumnIndex("ImgID")), cursor.getString(cursor.getColumnIndex("food_name")), ID);
             }
         }else{
-            cursor = db.rawQuery("select * from FoodDATA where type like '%" + type + "%'", null);
+            if(type.equals("국/찌개")){
+                String[] ty = type.split("/");
+                cursor = db.rawQuery("select * from FoodDATA where type like '%" + ty[0] + "%' or type like '%"+ty[1]+"%'", null);
+            }else {
+                cursor = db.rawQuery("select * from FoodDATA where type like '%" + type + "%'", null);
+            }
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();
                 customAdapter.addItem(cursor.getInt(cursor.getColumnIndex("ImgID")), cursor.getString(cursor.getColumnIndex("food_name")), ID);

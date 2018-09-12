@@ -111,16 +111,12 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
-        MenuItem item = (MenuItem)navigationView.getMenu().findItem(R.id.nav_logout);
+        //MenuItem item = (MenuItem)navigationView.getMenu().findItem(R.id.nav_logout);
         if(ID.equals("unknown")) {
-            item.setTitle("로그인");
-            item.setIcon(R.drawable.lock);
             login_nav.setImageResource(R.drawable.lock);
             email_text.setText("로그인이 필요합니다.");
         }
         else{
-            item.setTitle("로그아웃");
-            item.setIcon(R.drawable.unlock);
             login_nav.setImageResource(R.drawable.unlock);
             email_text.setText("");
         }
@@ -247,58 +243,48 @@ public class Main2Activity extends AppCompatActivity
         // Handle navigation view item clicks here.
 
         int id = item.getItemId();
-
-        if (id == R.id.nav_info) {
+        Intent food_info = new Intent(getApplicationContext(), FoodListActivity.class);
+        String type = "";
+        if (id == R.id.nav_book) {
             if (ID.equals("unknown")) {
                 Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
             } else {
-                intent = new Intent(getApplicationContext(), MyinfoActivity.class);
-                intent.putExtra("ID", ID);
-                startActivity(intent);
-            }
-        } else if (id == R.id.nav_book) {
-            if (ID.equals("unknown")) {
-                Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
-            } else {
-                Intent food_info = new Intent(getApplicationContext(), FoodListActivity.class);
-                food_info.putExtra("type", "즐찾");
-                food_info.putExtra("ID", ID);
-                startActivity(food_info);
+                type = "즐찾";
             }
         } else if (id == R.id.k_food) {
-            Intent food_info = new Intent(getApplicationContext(),FoodListActivity.class);
-            food_info.putExtra("type","한식");
-            food_info.putExtra("ID",ID);
-            startActivity(food_info);
+            type = "한식";
         } else if (id == R.id.u_food) {
-            Intent food_info = new Intent(getApplicationContext(),FoodListActivity.class);
-            food_info.putExtra("type","양식");
-            food_info.putExtra("ID",ID);
-            startActivity(food_info);
+            type = "양식";
         } else if (id == R.id.c_food) {
-            Intent food_info = new Intent(getApplicationContext(),FoodListActivity.class);
-            food_info.putExtra("type","중식");
-            food_info.putExtra("ID",ID);
-            startActivity(food_info);
+            type = "중식";
         } else if (id == R.id.j_food) {
-            Intent food_info = new Intent(getApplicationContext(),FoodListActivity.class);
-            food_info.putExtra("type","일식");
-            food_info.putExtra("ID",ID);
-            startActivity(food_info);
+            type = "일식";
         } else if (id == R.id.nav_share) {
             Intent bt = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(bt);
-        } else if (id == R.id.nav_logout){
-            if(!ID.equals("unknown")) {
-                db.execSQL("update UserDATA set Login = 'false' where ID = '" + ID + "'");
-            }
-
-            Intent toLogin = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(toLogin);
-            finish();
-
+            return true;
+        } else if (id == R.id.noodle) {
+            type = "면";
+        } else if (id == R.id.bob) {
+            type = "밥";
+        } else if (id == R.id.meat) {
+            type = "고기";
+        } else if (id == R.id.gook_jjigea) {
+            type = "국/찌개";
+        } else if (id == R.id.banchan) {
+            type = "반찬";
+        } else if (id == R.id.sangsun) {
+            type = "생선";
+        } else if (id == R.id.tuigim_ryu) {
+            type = "튀김";
+        } else if (id == R.id.bread) {
+            type = "빵";
+        } else if (id == R.id.soup_ryu) {
+            type = "스프";
         }
-
+        food_info.putExtra("type",type);
+        food_info.putExtra("ID",ID);
+        startActivity(food_info);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
