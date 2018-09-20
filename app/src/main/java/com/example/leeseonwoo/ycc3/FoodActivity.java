@@ -222,7 +222,7 @@ public class FoodActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void onDestroy() {
+    /*public void onDestroy() {
         super.onDestroy();
         bt.stopService(); //블루투스 중지
     }
@@ -261,5 +261,5 @@ public class FoodActivity extends AppCompatActivity {
                 finish();
             }
         }
-    }
+    }*/
 }

@@ -44,12 +44,13 @@ public class Main2Activity extends AppCompatActivity
     Intent intent;
     String ID;
     CustomAdapter customAdapter = new CustomAdapter();
-    CustomAdapter3 customAdapter3 = new CustomAdapter3();
+    CustomAdapter3[] customAdapter3 = new CustomAdapter3[3];
     SearchView searchView;
     TextView nickname;
     private BluetoothSPP bt;
-    TextView weight,list_title1,list_title2,list_title3;
-    ListView listView1,listView2,listView3;
+    TextView weight;
+    TextView[] list_title;
+    ListView[] listView_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,12 +105,16 @@ public class Main2Activity extends AppCompatActivity
         nickname = (TextView) navigationView.getHeaderView(0).findViewById(R.id.name_edit2);
         TextView email_text = (TextView)navigationView.getHeaderView(0).findViewById(R.id.textView);
         ImageView login_nav = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.nav_login);
-        list_title1 = (TextView)findViewById(R.id.textView27);
-        list_title2 = (TextView)findViewById(R.id.textView28);
-        list_title3 = (TextView)findViewById(R.id.textView29);
-        listView1 = (ListView)findViewById(R.id.list1);
-        listView2 = (ListView)findViewById(R.id.list2);
-        listView3 = (ListView)findViewById(R.id.list3);
+        list_title = new TextView[3];
+        listView_ = new ListView[3];
+        list_title[0] = (TextView)findViewById(R.id.textView27);
+        list_title[1] = (TextView)findViewById(R.id.textView28);
+        list_title[2] = (TextView)findViewById(R.id.textView29);
+        listView_[0] = (ListView)findViewById(R.id.list1);
+        listView_[1] = (ListView)findViewById(R.id.list2);
+        listView_[2] = (ListView)findViewById(R.id.list3);
+
+        String[] type = new String[] {"밥", "빵", "면", "고기", "생선", "국", "반찬", "튀김", "스프"};
         intent = getIntent();
 
         int gender = intent.getExtras().getInt("gender");
@@ -160,11 +165,22 @@ public class Main2Activity extends AppCompatActivity
         }
         Random random = new Random();
         int[] random1 = new int[5];
+        int[] random2 = new int[3];
         for (int x = 0; x < 5; x++){
             random1[x] = random.nextInt(12)+1;
 
             for(int j = 0;j<x;j++){
                 if(random1[x] == random1[j]){
+                    x--;
+                    break;
+                }
+            }
+        }
+        for (int x = 0; x < 3; x++){
+            random2[x] = random.nextInt(8)+1;
+
+            for(int j = 0;j<x;j++){
+                if(random2[x] == random2[j]){
                     x--;
                     break;
                 }
@@ -177,7 +193,29 @@ public class Main2Activity extends AppCompatActivity
         }
         customAdapter.notifyDataSetChanged();
         gridView.setAdapter(customAdapter);
-
+        int a;
+        for(int i=0;i<3;i++){
+            customAdapter3[i] = new CustomAdapter3();
+            list_title[i].setText(type[random2[i]]);
+            Log.d("type check",type[random2[i]]);
+            Cursor cursor;
+            if(type[random2[i]].equals("국")){
+                cursor = db.rawQuery("select * from FoodDATA where type like '%"+type[random2[i]]+"%' or type like '%찌개%'",null);
+            }
+            else{
+                cursor = db.rawQuery("select * from FoodDATA where type like '%"+type[random2[i]]+"%'",null);
+            }
+            cursor.moveToFirst();
+            if(type[random2[i]].equals("스프")||type[random2[i]].equals("빵")||type[random2[i]].equals("생선")) a = 1;
+            else if(type[random2[i]].equals("튀김")) a=2;
+            else a=3;
+            for(int j=0;j<a;j++){
+                customAdapter3[i].addItem(cursor.getInt(cursor.getColumnIndex("ImgID")),cursor.getString(cursor.getColumnIndex("food_name")),ID);
+                cursor.moveToNext();
+            }
+            listView_[i].setAdapter(customAdapter3[i]);
+            cursor.close();
+        }
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -201,8 +239,9 @@ public class Main2Activity extends AppCompatActivity
 
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
             public void onDataReceived(byte[] data, String message) {
-                String[] rs = message.split(".");
-                weight.setText(rs[0]);
+                Toast.makeText(Main2Activity.this, "수신됨", Toast.LENGTH_SHORT).show();
+                //String[] rs = message.split(".");
+                weight.setText(message);
             }
         });
         bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() { //연결됐을 때
@@ -399,7 +438,7 @@ public class Main2Activity extends AppCompatActivity
             customAdapter.notifyDataSetChanged();
         }
     }
-    public void onDestroy() {
+    /*public void onDestroy() {
         super.onDestroy();
         bt.stopService(); //블루투스 중지
     }
@@ -436,5 +475,5 @@ public class Main2Activity extends AppCompatActivity
                 finish();
             }
         }
-    }
+    }*/
 }
