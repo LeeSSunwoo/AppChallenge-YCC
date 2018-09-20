@@ -30,17 +30,15 @@ public class FindPWActivity extends AppCompatActivity {
         setContentView(R.layout.activity_find_pw);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
 
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
 
-        int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
-        ActionBar bar = getSupportActionBar();
-        Spannable text = new SpannableString(bar.getTitle());
-        text.setSpan(new ForegroundColorSpan(colorText), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        bar.setTitle(text);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.abs_layout);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
 
         final EditText edit_id = (EditText)findViewById(R.id.edit_ID);
         final EditText edit_birth = (EditText)findViewById(R.id.edit_birth);

@@ -29,16 +29,16 @@ public class ResetpwActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resetpw);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
 
-        int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
-        ActionBar bar = getSupportActionBar();
-        Spannable text = new SpannableString(bar.getTitle());
-        text.setSpan(new ForegroundColorSpan(colorText), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        bar.setTitle(text);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.abs_layout);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
 
         final EditText edit_PW = (EditText) findViewById(R.id.resetPW);
         final EditText edit_ch = (EditText) findViewById(R.id.PWcheck);

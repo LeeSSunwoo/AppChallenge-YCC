@@ -5,15 +5,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,10 +71,11 @@ public class CustomAdapter extends BaseAdapter{
         ImageView food_image = (ImageView)view.findViewById(R.id.food_image);
         TextView food_name = (TextView)view.findViewById(R.id.food_name);
         final ImageView book_mark = (ImageView)view.findViewById(R.id.book_mark);
+        TextView back = (TextView)view.findViewById(R.id.textView16);
+        FrameLayout frameLayout = (FrameLayout)view.findViewById(R.id.list_frame);
         GradientDrawable drawable = (GradientDrawable) context.getDrawable(R.drawable.layout_bg);
-        food_image.setBackground(drawable);
-        food_image.setClipToOutline(true);
-
+        frameLayout.setBackground(drawable);
+        frameLayout.setClipToOutline(true);
         final ListViewItem item = listViewItemList.get(i);
         DBHelper = new DatabaseOpenHelper(context);
         db = DBHelper.getWritableDatabase();
@@ -99,31 +105,16 @@ public class CustomAdapter extends BaseAdapter{
                 cursor.close();
             }
         });
-        //Bitmap bitmap = BitmapFactory.decodeResource(view.getResources(),item.getFood_image());
-        //int color = 0xFFFFFF; // default white
 
-        /*Palette.Builder pb = Palette.from(bitmap);
-
-        Palette palette = pb.generate();
-
-        if (palette != null && palette.getLightVibrantSwatch() != null) {
-
-            color = palette.getLightVibrantSwatch().getRgb();
-
-        }else if (palette != null && palette.getDarkVibrantSwatch() != null) {
-
-            color = palette.getDarkVibrantSwatch().getRgb();
-
-        } else if (palette != null && palette.getDarkMutedSwatch() != null) {
-
-            color = palette.getDarkMutedSwatch().getRgb();
-
-        } else if (palette != null && palette.getLightMutedSwatch() != null) {
-
-            color = palette.getLightMutedSwatch().getRgb();
-
-        }*/
-        //현재 선택된 View에 데이터 삽입
+        Bitmap orgImage = BitmapFactory.decodeResource(context.getResources(), item.getFood_image());
+        Bitmap color = Bitmap.createScaledBitmap(orgImage, 1, 1, true);
+        int rgb = color.getPixel(0,0);
+        int alpha = Color.alpha(rgb);
+        int red = Color.red(rgb);
+        int green = Color.green(rgb);
+        int blue = Color.blue(rgb);
+        Log.d("back color",String.valueOf(alpha)+", "+String.valueOf(red)+", "+String.valueOf(green)+", "+String.valueOf(blue));
+        back.setBackgroundColor(Color.rgb(red,green,blue));
         food_image.setImageResource(item.getFood_image());
         food_name.setText(item.getFood_name());
 
@@ -134,5 +125,31 @@ public class CustomAdapter extends BaseAdapter{
         listViewItemList.clear();
     }
 
+    private Bitmap resize(Context context, Uri uri, int resize){
+        Bitmap resizeBitmap=null;
 
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        try {
+            BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options); // 1번
+
+            int width = options.outWidth;
+            int height = options.outHeight;
+            int samplesize = 1;
+
+            while (true) {//2번
+                if (width / 2 < resize || height / 2 < resize)
+                    break;
+                width /= 2;
+                height /= 2;
+                samplesize *= 2;
+            }
+
+            options.inSampleSize = samplesize;
+            Bitmap bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options); //3번
+            resizeBitmap=bitmap;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return resizeBitmap;
+    }
 }

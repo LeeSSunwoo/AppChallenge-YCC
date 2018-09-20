@@ -17,23 +17,23 @@
         <activity android:name=".registerActivity" />
         <activity
             android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MyinfoActivity"
-            android:label="@string/title_activity_myinfo"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FindIDActivity"
-            android:label="@string/title_activity_find_id"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FindPWActivity"
-            android:label="@string/title_activity_find_pw"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ResetpwActivity"
-            android:label="@string/title_activity_resetpw"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashActivity"
@@ -46,20 +46,20 @@
         </activity>
         <activity
             android:name=".FoodListActivity"
-            android:label="@string/title_activity_food_list"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FoodActivity"
-            android:label="@string/title_activity_food"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RecipeActivity"
-            android:label="@string/title_activity_recipe"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ResultActivity"
-            android:label="@string/title_activity_result"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

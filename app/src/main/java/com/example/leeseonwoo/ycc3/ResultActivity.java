@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 public class ResultActivity extends AppCompatActivity {
 
-    CustomAdapter customAdapter = new CustomAdapter();
+    CustomAdapter3 customAdapter = new CustomAdapter3();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +32,11 @@ public class ResultActivity extends AppCompatActivity {
 
         ListView listView = (ListView)findViewById(R.id.result_listview);
 
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.abs_layout);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
-        int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
-        ActionBar bar = getSupportActionBar();
-        Spannable text = new SpannableString(bar.getTitle());
-        text.setSpan(new ForegroundColorSpan(colorText), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        bar.setTitle(text);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

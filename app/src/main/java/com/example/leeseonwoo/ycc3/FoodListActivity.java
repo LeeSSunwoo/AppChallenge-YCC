@@ -30,13 +30,12 @@ public class FoodListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_food_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.abs_layout);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
-        int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
-        ActionBar bar = getSupportActionBar();
-        Spannable text = new SpannableString(bar.getTitle());
-        text.setSpan(new ForegroundColorSpan(colorText), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        bar.setTitle(text);
+
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
         customAdapter.clear();

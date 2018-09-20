@@ -25,14 +25,11 @@ public class MyinfoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.abs_layout);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
-
-        int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
-        ActionBar bar = getSupportActionBar();
-        Spannable text = new SpannableString(bar.getTitle());
-        text.setSpan(new ForegroundColorSpan(colorText), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        bar.setTitle(text);
 
         Intent intent = getIntent();
 

@@ -31,7 +31,7 @@
         <item
             android:id="@+id/meat"
             android:icon="@drawable/gogi"
-            android:title="고기" />
+            android:title="고기류" />
         <item
             android:id="@+id/gook_jjigea"
             android:icon="@drawable/gook"

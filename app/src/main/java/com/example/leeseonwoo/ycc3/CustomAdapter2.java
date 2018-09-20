@@ -5,13 +5,18 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,9 +69,11 @@ public class CustomAdapter2 extends BaseAdapter{
         ImageView food_image = (ImageView)view.findViewById(R.id.imageView5);
         TextView food_name = (TextView)view.findViewById(R.id.textView4);
         final ImageView book_mark = (ImageView)view.findViewById(R.id.book_mark1);
+        TextView back = (TextView)view.findViewById(R.id.textView20);
+        FrameLayout frameLayout = (FrameLayout)view.findViewById(R.id.grid_frame);
         GradientDrawable drawable = (GradientDrawable) context.getDrawable(R.drawable.layout_bg);
-        food_image.setBackground(drawable);
-        food_image.setClipToOutline(true);
+        frameLayout.setBackground(drawable);
+        frameLayout.setClipToOutline(true);
 
         final ListViewItem item = listViewItemList.get(i);
         DBHelper = new DatabaseOpenHelper(context);
@@ -87,37 +94,25 @@ public class CustomAdapter2 extends BaseAdapter{
                     db.execSQL("delete from Bookmark where ID = '"+item.getID()+"' and food_name = '"+item.getFood_name()+"'");
                     book_mark.setImageResource(R.drawable.btn_star_off);
                 }
-                else {
+                else if(!item.getID().equals("unknown")){
                     db.execSQL("insert into Bookmark (ID, food_name, ImgID) VALUES ('"+item.getID()+"', '"+item.getFood_name()+"', "+item.getFood_image()+")");
                     book_mark.setImageResource(R.drawable.btn_star_on);
+                }
+                else {
+                    Toast.makeText(context, "즐겨찾기를 하려면 로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
                 }
                 cursor.close();
             }
         });
-        //Bitmap bitmap = BitmapFactory.decodeResource(view.getResources(),item.getFood_image());
-        //int color = 0xFFFFFF; // default white
-
-        /*Palette.Builder pb = Palette.from(bitmap);
-
-        Palette palette = pb.generate();
-
-        if (palette != null && palette.getLightVibrantSwatch() != null) {
-
-            color = palette.getLightVibrantSwatch().getRgb();
-
-        }else if (palette != null && palette.getDarkVibrantSwatch() != null) {
-
-            color = palette.getDarkVibrantSwatch().getRgb();
-
-        } else if (palette != null && palette.getDarkMutedSwatch() != null) {
-
-            color = palette.getDarkMutedSwatch().getRgb();
-
-        } else if (palette != null && palette.getLightMutedSwatch() != null) {
-
-            color = palette.getLightMutedSwatch().getRgb();
-
-        }*/
+        Bitmap orgImage = BitmapFactory.decodeResource(context.getResources(), item.getFood_image());
+        Bitmap color = Bitmap.createScaledBitmap(orgImage, 1, 1, true);
+        int rgb = color.getPixel(0,0);
+        int alpha = Color.alpha(rgb);
+        int red = Color.red(rgb);
+        int green = Color.green(rgb);
+        int blue = Color.blue(rgb);
+        Log.d("back color",String.valueOf(alpha)+", "+String.valueOf(red)+", "+String.valueOf(green)+", "+String.valueOf(blue));
+        back.setBackgroundColor(Color.rgb(red,green,blue));
         //현재 선택된 View에 데이터 삽입
         food_image.setImageResource(item.getFood_image());
         food_name.setText(item.getFood_name());

@@ -44,12 +44,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text=" Login"
+        android:text="Login"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@android:color/holo_orange_dark"/>
 
     <Button
         android:id="@+id/login_btn"
@@ -58,6 +59,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="로그인"
+        android:background="#00ff0000"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/editText2"
         app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
@@ -68,6 +72,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="회원가입"
+        android:background="#00ff0000"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/editText2"
         app:layout_constraintTop_toBottomOf="@+id/editText2"
 
@@ -80,6 +87,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="reset"
+        android:background="#00ff0000"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -97,6 +107,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="아이디 찾기"
+        android:background="#00ff0000"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/register_btn"
         app:layout_constraintTop_toBottomOf="@+id/register_btn" />
 
@@ -106,6 +119,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="비밀번호 찾기"
+        android:background="#00ff0000"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/login_btn"
         app:layout_constraintTop_toBottomOf="@+id/login_btn" />
 

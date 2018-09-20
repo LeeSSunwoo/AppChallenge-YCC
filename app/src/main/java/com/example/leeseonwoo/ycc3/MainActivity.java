@@ -49,11 +49,15 @@ public class MainActivity extends AppCompatActivity {
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
             public void onDataReceived(byte[] data, String message) {
                 //Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-                int ind = message.indexOf(".");
+                /*int ind = message.indexOf(".");
                 message = message.substring(0,ind);
                 if(message.charAt(0)=='-') {
                     message = "0";
-                }
+                }*/
+                //Toast.makeText(MainActivity.this, "수신옴", Toast.LENGTH_SHORT).show();
+                //int a = Integer.parseInt(message)/100;
+                //int b = Integer.parseInt(message)%100;
+                //textView.setText(Character.toString((char)a)+Character.toString((char)b));
                 textView.setText(message);
         }
         });
@@ -112,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnSend = findViewById(R.id.btnSend); //데이터 전송
         btnSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                bt.send(toBlue.getText().toString()+"\n", true);
+                String a = toBlue.getText().toString();
+                bt.send(a, true);
             }
         });
     }

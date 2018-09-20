@@ -37,11 +37,11 @@ public class registerActivity extends AppCompatActivity {
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
 
-        int colorText = ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark);
-        ActionBar bar = getSupportActionBar();
-        Spannable text = new SpannableString(bar.getTitle());
-        text.setSpan(new ForegroundColorSpan(colorText), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        bar.setTitle(text);
+        ActionBar ab = getSupportActionBar() ;
+
+        ab.setIcon(R.drawable.yccb) ;
+        ab.setDisplayUseLogoEnabled(true) ;
+        ab.setDisplayShowHomeEnabled(true) ;
 
         ID = (EditText)findViewById(R.id.editText_ID);
         PW = (EditText)findViewById(R.id.editText_PW);
@@ -52,10 +52,6 @@ public class registerActivity extends AppCompatActivity {
         woman = (RadioButton)findViewById(R.id.radioButton2);
         Button overlap = (Button)findViewById(R.id.btn_check);
         Button submit = (Button)findViewById(R.id.btn_submit);
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.mail));
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         overlap.setOnClickListener(new View.OnClickListener() {
             @Override
