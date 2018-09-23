@@ -28,9 +28,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ActionBar ab = getSupportActionBar() ;
 
-        ab.setIcon(R.drawable.yccb) ;
+        /*ab.setIcon(R.drawable.yccb);
         ab.setDisplayUseLogoEnabled(true) ;
         ab.setDisplayShowHomeEnabled(true) ;
+        */
+        ab.setTitle("Login");
+
 
         // 홈,화살표 버튼 색상 변경
         //mToggle.getDrawerArrowDrawable().setColor(colorText);

@@ -108,6 +108,8 @@ public class RecipeActivity extends AppCompatActivity {
         timeo = (TextView)findViewById(R.id.textView40);
         Button btn_timer = (Button)findViewById(R.id.button7);
         Button start_timer = (Button)findViewById(R.id.button8);
+        Button pause = (Button)findViewById(R.id.button9);
+        Button stop = (Button)findViewById(R.id.button10);
         final FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frameLayout);
 
         String[] arr = getResources().getStringArray(R.array.time);
@@ -168,6 +170,20 @@ public class RecipeActivity extends AppCompatActivity {
                 countDownTimer.start();
             }
         });
+
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -175,15 +191,6 @@ public class RecipeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     private void SetPrevious(int num){

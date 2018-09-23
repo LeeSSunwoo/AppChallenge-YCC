@@ -39,6 +39,7 @@ public class FoodActivity extends AppCompatActivity {
     String name;
     LinearLayout material;
     private BluetoothSPP bt;
+    String[] ss;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +74,7 @@ public class FoodActivity extends AppCompatActivity {
         name = cursor.getString(cursor.getColumnIndex("food_name"));
         food.setText(name);
         String _main = cursor.getString(cursor.getColumnIndex("material"));
-        final String[] ss = _main.split(", ");
+        ss = _main.split(", ");
         String[] main = new String[ss.length];
         for (int k=0;k<main.length;k++){
             main[k] = "";
@@ -109,20 +110,24 @@ public class FoodActivity extends AppCompatActivity {
             material.addView(textViews[i]);
             final int finalI = i;
             textViews[i].setOnClickListener(new View.OnClickListener() {
-                String s = ss[finalI];
-                String[] main = s.split("!");
                 @Override
                 public void onClick(View view) {
+                    String s = ss[finalI];
+                    String[] main = s.split("!");
                     for (int i=0;i<main.length;i++){
                         Log.d("asdfasdfasdfasdfasdf",s);
-                        if(main[i].contains("?")){
+                        if(main[i].contains("?") && main[i+1].contains("g")){
                             String[] we = main[i].split("\\?");
+
                             weight_.setText(we[0]);
                         }
                     }
                     Toast.makeText(FoodActivity.this, s, Toast.LENGTH_SHORT).show();
                     if(frameLayout.getVisibility() == View.INVISIBLE && s.contains("g"))
                         frameLayout.setVisibility(View.VISIBLE);
+                    if(!s.contains("g")){
+                        frameLayout.setVisibility(View.INVISIBLE);
+                    }
                 }
             });
         }
@@ -158,6 +163,7 @@ public class FoodActivity extends AppCompatActivity {
                 cursor.close();
                 finish();
                 Log.d("check finish","food is ended");
+
             }
         });
 
@@ -174,21 +180,55 @@ public class FoodActivity extends AppCompatActivity {
                 weight.setText(rs[0]);
                 double rate = Double.parseDouble(rs[0])/Double.parseDouble(String.valueOf(ss[0].split("!")[1].split("\\?")));
                 String[] result = new String[ss.length];
+                String middle;
                 for(int k=0;k<ss.length;k++){
                     result[k]="";
                 }
                 for(int i=0; i<ss.length;i++){
 
                     String[] aa = ss[i].split("!");
+                    ss[i] = "";
                     for(int j=0; j<aa.length;j++){
                         if(aa[j].contains("?")){
-                            double sss = Double.parseDouble(String.valueOf(aa[j].split("\\?")));
+                            String[] a = aa[j].split("\\?");
+                            if(a[0].contains("/")){
+                                String[] r = a[0].split("/");
+                                a[0] = String.valueOf(Double.parseDouble(String.format("%.2f",Double.parseDouble(r[0])/Double.parseDouble(r[1]))));
+                            }
+                            Log.d("check resusdfasdfasfa",a[0]);
+                            double sss = Double.parseDouble(String.valueOf(a[0]));
+                            Log.d("check rate",String.valueOf(sss));
                             sss = sss*rate;
-                            aa[j] = String.valueOf(sss).split(".")[0];
+                            Log.d("check rate",String.valueOf(sss));
+                            String z[] = new String[2];
+                            if(aa[j].contains("/")){
+                                z[0] = setNumber(sss);
+                                aa[j] = z[0];
+                                middle = "!"+z[0]+"?!";
+                            }
+                            else {
+                                z = String.valueOf(sss).split("\\.");
+                                if(!z[1].equals("0")){
+                                    aa[j] = z[0]+"."+z[1];
+                                    middle = "!"+aa[j]+"?!";
+                                }
+                                else {
+                                    aa[j] = z[0];
+                                    middle = "!"+z[0]+"?!";
+                                }
+                            }
+                            Log.d("check asdfasf",z[0]);
+
+                        }else{
+                            middle = aa[j];
                         }
+
+                        ss[i] += middle;
                         result[i] += aa[j];
                     }
                     textViews[i].setText(result[i]);
+                    Log.d("aaqaqaqaqa",ss[i]);
+                    //result[i]="";
                 }
             }
         });
@@ -222,6 +262,14 @@ public class FoodActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private String setNumber(double a){
+        int up = (int) (a*100);
+        int down = 100;
+
+        return String.valueOf(1)+"/"+String.valueOf(down/up);
+    }
+
     /*public void onDestroy() {
         super.onDestroy();
         bt.stopService(); //블루투스 중지
