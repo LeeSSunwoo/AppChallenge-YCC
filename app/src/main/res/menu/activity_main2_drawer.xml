@@ -24,46 +24,47 @@
             android:id="@+id/j_food"
             android:icon="@drawable/jp_food"
             android:title="일식" />
-        <item
-            android:id="@+id/noodle"
-            android:icon="@drawable/myeun"
-            android:title="면류" />
-        <item
-            android:id="@+id/meat"
-            android:icon="@drawable/gogi"
-            android:title="고기류" />
-        <item
-            android:id="@+id/gook_jjigea"
-            android:icon="@drawable/gook"
-            android:title="국/찌개류" />
-        <item
-            android:id="@+id/banchan"
-            android:icon="@drawable/banchan_img"
-            android:title="반찬류" />
-        <item
-            android:id="@+id/sangsun"
-            android:icon="@drawable/fish"
-            android:title="생선류" />
-        <item
-            android:id="@+id/tuigim_ryu"
-            android:icon="@drawable/tuigim"
-            android:title="튀김류" />
-        <item
-            android:id="@+id/bob"
-            android:icon="@drawable/bob_img"
-            android:title="밥류" />
-        <item
-            android:id="@+id/bread"
-            android:icon="@drawable/croissant"
-            android:title="빵류" />
-        <item
-            android:id="@+id/soup_ryu"
-            android:icon="@drawable/soup"
-            android:title="수프류" />
+
     </group>
 
     <item android:title="Communicate">
         <menu>
+            <item
+                android:id="@+id/noodle"
+                android:icon="@drawable/myeun"
+                android:title="면류" />
+            <item
+                android:id="@+id/meat"
+                android:icon="@drawable/gogi"
+                android:title="고기류" />
+            <item
+                android:id="@+id/gook_jjigea"
+                android:icon="@drawable/gook"
+                android:title="국/찌개류" />
+            <item
+                android:id="@+id/banchan"
+                android:icon="@drawable/banchan_img"
+                android:title="반찬류" />
+            <item
+                android:id="@+id/sangsun"
+                android:icon="@drawable/fish"
+                android:title="생선류" />
+            <item
+                android:id="@+id/tuigim_ryu"
+                android:icon="@drawable/tuigim"
+                android:title="튀김류" />
+            <item
+                android:id="@+id/bob"
+                android:icon="@drawable/bob_img"
+                android:title="밥류" />
+            <item
+                android:id="@+id/bread"
+                android:icon="@drawable/croissant"
+                android:title="빵류" />
+            <item
+                android:id="@+id/soup_ryu"
+                android:icon="@drawable/soup"
+                android:title="수프류" />
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"

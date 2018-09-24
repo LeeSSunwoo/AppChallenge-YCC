@@ -157,13 +157,13 @@ public class FoodActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent1 = new Intent(getApplicationContext(),RecipeActivity.class);
+                Intent intent1 = new Intent(getApplicationContext(),RecipeActivity.class);
                 intent1.putExtra("food_name", name);
                 startActivity(intent1);
                 cursor.close();
                 finish();
-                Log.d("check finish","food is ended");*/
-                double rate = 0.5;
+                Log.d("check finish","food is ended");
+                /*double rate = 0.5;
                 String[] result = new String[ss.length];
                 String middle;
                 for(int k=0;k<ss.length;k++){
@@ -214,7 +214,7 @@ public class FoodActivity extends AppCompatActivity {
                     textViews[i].setText(result[i]);
                     Log.d("aaqaqaqaqa",ss[i]);
                     //result[i]="";
-                }
+                }*/
 
             }
         });

@@ -261,7 +261,18 @@ public class Main2Activity extends AppCompatActivity
                         , "Unable to connect", Toast.LENGTH_SHORT).show();
             }
         });
-
+        for(int l = 0;l<3;l++) {
+            listView_[l].setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    ListViewItem item = (ListViewItem) adapterView.getItemAtPosition(i);
+                    String name = item.getFood_name();
+                    Intent Gotofood = new Intent(getApplicationContext(), FoodActivity.class);
+                    Gotofood.putExtra("food_name", name);
+                    startActivity(Gotofood);
+                }
+            });
+        }
     }
 
     private SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {

@@ -41,15 +41,14 @@
                     android:id="@+id/imageView3"
                     android:layout_width="355dp"
                     android:layout_height="215dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="18dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/layout_bg"
                     android:scaleType="fitXY"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView33"
-                    app:srcCompat="@drawable/orange_gradation" />
+                    app:srcCompat="@drawable/orange_gradation"
+                    />
 
                 <TextView
                     android:id="@+id/textView36"
@@ -85,7 +84,9 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView36">
+                    app:layout_constraintTop_toBottomOf="@+id/textView36"
+                    android:background="@android:color/white"
+                    android:elevation="10dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -147,7 +148,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_margin="18dp"
+                        android:elevation="10dp">
 
                         <TextView
                             android:id="@+id/textView27"
@@ -168,7 +171,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_margin="18dp"
+                        android:elevation="10dp">
 
                         <TextView
                             android:id="@+id/textView28"
@@ -189,7 +194,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_margin="18dp"
+                        android:elevation="10dp">
 
                         <TextView
                             android:id="@+id/textView29"
