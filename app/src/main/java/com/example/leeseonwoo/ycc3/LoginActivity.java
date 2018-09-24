@@ -32,8 +32,9 @@ public class LoginActivity extends AppCompatActivity {
         ab.setDisplayUseLogoEnabled(true) ;
         ab.setDisplayShowHomeEnabled(true) ;
         */
-        ab.setTitle("Login");
-
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.title_layout);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // 홈,화살표 버튼 색상 변경
         //mToggle.getDrawerArrowDrawable().setColor(colorText);

@@ -157,12 +157,64 @@ public class FoodActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(getApplicationContext(),RecipeActivity.class);
+                /*Intent intent1 = new Intent(getApplicationContext(),RecipeActivity.class);
                 intent1.putExtra("food_name", name);
                 startActivity(intent1);
                 cursor.close();
                 finish();
-                Log.d("check finish","food is ended");
+                Log.d("check finish","food is ended");*/
+                double rate = 0.5;
+                String[] result = new String[ss.length];
+                String middle;
+                for(int k=0;k<ss.length;k++){
+                    result[k]="";
+                }
+                for(int i=0; i<ss.length;i++){
+
+                    String[] aa = ss[i].split("!");
+                    ss[i] = "";
+                    for(int j=0; j<aa.length;j++){
+                        if(aa[j].contains("?")){
+                            String[] a = aa[j].split("\\?");
+                            if(a[0].contains("/")){
+                                String[] r = a[0].split("/");
+                                a[0] = String.valueOf(Double.parseDouble(String.format("%.2f",Double.parseDouble(r[0])/Double.parseDouble(r[1]))));
+                            }
+                            Log.d("check resusdfasdfasfa",a[0]);
+                            double sss = Double.parseDouble(String.valueOf(a[0]));
+                            Log.d("check rate",String.valueOf(sss));
+                            sss = sss*rate;
+                            Log.d("check rate",String.valueOf(sss));
+                            String z[] = new String[2];
+                            if(aa[j].contains("/")){
+                                z[0] = setNumber(sss);
+                                aa[j] = z[0];
+                                middle = "!"+z[0]+"?!";
+                            }
+                            else {
+                                z = String.valueOf(sss).split("\\.");
+                                if(!z[1].equals("0")){
+                                    aa[j] = z[0]+"."+z[1];
+                                    middle = "!"+aa[j]+"?!";
+                                }
+                                else {
+                                    aa[j] = z[0];
+                                    middle = "!"+z[0]+"?!";
+                                }
+                            }
+                            Log.d("check asdfasf",z[0]);
+
+                        }else{
+                            middle = aa[j];
+                        }
+
+                        ss[i] += middle;
+                        result[i] += aa[j];
+                    }
+                    textViews[i].setText(result[i]);
+                    Log.d("aaqaqaqaqa",ss[i]);
+                    //result[i]="";
+                }
 
             }
         });

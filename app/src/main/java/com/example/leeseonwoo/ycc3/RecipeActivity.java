@@ -229,6 +229,8 @@ public class RecipeActivity extends AppCompatActivity {
                 timeo.setText("00 : 00");
                 Toast.makeText(RecipeActivity.this, "끝!", Toast.LENGTH_SHORT).show();
             }
+
+            
         };
     }
 
