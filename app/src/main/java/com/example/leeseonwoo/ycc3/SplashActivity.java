@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 public class SplashActivity extends AppCompatActivity {
     DatabaseOpenHelper DBHelper;
@@ -15,11 +16,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        startLoading();
-
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
-
+        startLoading();
     }
     private void startLoading() {
         Handler handler = new Handler();
@@ -39,13 +38,16 @@ public class SplashActivity extends AppCompatActivity {
                     Log.d("sended data : ",String.valueOf(loginState.getInt(loginState.getColumnIndex("gender")))+" "+loginState.getString(loginState.getColumnIndex("Name"))
                     +loginState.getString(loginState.getColumnIndex("ID")));
                     startActivity(intent1);
+                    db.close();
                     finish();
                 }
                 else{intent1.putExtra("gender", R.drawable.user);
                 intent1.putExtra("name", "새로운 요리사");
                 intent1.putExtra("ID","unknown");
                 startActivity(intent1);
-                finish();}
+                db.close();
+                    Toast.makeText(SplashActivity.this, "asdf", Toast.LENGTH_SHORT).show();
+                finish(); }
             }
         }, 2000);
     }

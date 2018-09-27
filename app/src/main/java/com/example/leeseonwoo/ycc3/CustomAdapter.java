@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +16,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +87,8 @@ public class CustomAdapter extends BaseAdapter{
         book_mark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DBHelper = new DatabaseOpenHelper(context);
+                db = DBHelper.getWritableDatabase();
                 Cursor cursor = db.rawQuery("select food_name from Bookmark where ID = '"+item.getID()+"' and food_name = '"+item.getFood_name()+"'",null);
                 if(cursor.getCount()!=0){
                     db.execSQL("delete from Bookmark where ID = '"+item.getID()+"' and food_name = '"+item.getFood_name()+"'");
@@ -117,39 +116,11 @@ public class CustomAdapter extends BaseAdapter{
         back.setBackgroundColor(Color.rgb(red,green,blue));
         food_image.setImageResource(item.getFood_image());
         food_name.setText(item.getFood_name());
-
+        db.close();
         return view;
 
     }
     public void clear(){
         listViewItemList.clear();
-    }
-
-    private Bitmap resize(Context context, Uri uri, int resize){
-        Bitmap resizeBitmap=null;
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        try {
-            BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options); // 1번
-
-            int width = options.outWidth;
-            int height = options.outHeight;
-            int samplesize = 1;
-
-            while (true) {//2번
-                if (width / 2 < resize || height / 2 < resize)
-                    break;
-                width /= 2;
-                height /= 2;
-                samplesize *= 2;
-            }
-
-            options.inSampleSize = samplesize;
-            Bitmap bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options); //3번
-            resizeBitmap=bitmap;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return resizeBitmap;
     }
 }

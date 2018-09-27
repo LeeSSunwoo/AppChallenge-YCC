@@ -39,28 +39,29 @@
 
                 <ImageView
                     android:id="@+id/imageView3"
-                    android:layout_width="355dp"
+                    android:layout_width="0dp"
                     android:layout_height="215dp"
+                    android:layout_marginEnd="18dp"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/layout_bg"
                     android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView33"
-                    app:srcCompat="@drawable/orange_gradation"
-                    />
+                    app:srcCompat="@drawable/scale" />
 
                 <TextView
                     android:id="@+id/textView36"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="18dp"
                     android:layout_marginTop="24dp"
                     android:text="이번엔 이런 메뉴 어때요?"
                     android:textColor="@android:color/black"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/guideline6"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
                 <TextView
@@ -68,36 +69,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="80dp"
                     android:layout_marginTop="8dp"
                     android:text="0"
+                    android:textColor="@android:color/black"
                     android:textSize="70sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                    app:layout_constraintStart_toStartOf="@+id/imageView3"
+                    app:layout_constraintEnd_toStartOf="@+id/textView35"
                     app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
                 <HorizontalScrollView
                     android:layout_width="0dp"
-                    android:layout_height="215dp"
+                    android:layout_height="225dp"
+                    android:layout_marginStart="18dp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView36"
-                    android:background="@android:color/white"
-                    android:elevation="10dp">
+                    >
 
                     <LinearLayout
+                        android:id="@+id/linear4"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="225dp"
+                        android:elevation="5dp"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
 
                         <GridView
                             android:id="@+id/random_reco"
                             android:layout_width="1875dp"
-                            android:layout_height="215dp"
-                            android:numColumns="5" />
+                            android:layout_height="205dp"
+                            android:numColumns="5"
+                            android:background="@drawable/layout_bg"
+                            />
                     </LinearLayout>
                 </HorizontalScrollView>
 
@@ -112,24 +116,27 @@
                     android:id="@+id/textView33"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="12dp"
                     android:text="이거 무게?"
                     android:textColor="@android:color/black"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/guideline6"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView35"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="110dp"
                     android:layout_marginTop="30dp"
                     android:text="g"
+                    android:textColor="@android:color/black"
                     android:textSize="55sp"
-                    app:layout_constraintStart_toEndOf="@+id/weight_text"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                    app:layout_constraintStart_toStartOf="@+id/imageView3"
                     app:layout_constraintTop_toTopOf="@+id/weight_text" />
 
             </android.support.constraint.ConstraintLayout>
@@ -137,7 +144,7 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="343dp"
                 android:layout_marginTop="16dp">
 
                 <LinearLayout
@@ -147,8 +154,10 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:background="@android:color/white"
+                        android:id="@+id/linear1"
                         android:layout_margin="18dp"
                         android:elevation="10dp">
 
@@ -156,22 +165,26 @@
                             android:id="@+id/textView27"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="48dp"
+                            android:layout_marginLeft="18dp"
                             android:text="TextView"
                             android:textColor="@android:color/black"
                             android:textSize="24sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingTop="8dp"/>
 
                         <ListView
                             android:id="@+id/list1"
                             android:layout_width="375dp"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:background="@android:color/white"
+                        android:id="@+id/linear2"
                         android:layout_margin="18dp"
                         android:elevation="10dp">
 
@@ -179,11 +192,12 @@
                             android:id="@+id/textView28"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="48dp"
+                            android:layout_marginLeft="18dp"
                             android:text="TextView"
                             android:textColor="@android:color/black"
                             android:textSize="24sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingTop="8dp"/>
 
                         <ListView
                             android:id="@+id/list2"
@@ -193,8 +207,10 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:background="@android:color/white"
+                        android:id="@+id/linear3"
                         android:layout_margin="18dp"
                         android:elevation="10dp">
 
@@ -202,11 +218,12 @@
                             android:id="@+id/textView29"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="48dp"
+                            android:layout_marginLeft="18dp"
                             android:text="TextView"
                             android:textColor="@android:color/black"
                             android:textSize="24sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:paddingTop="8dp"/>
 
                         <ListView
                             android:id="@+id/list3"

@@ -89,6 +89,8 @@ public class CustomAdapter2 extends BaseAdapter{
         book_mark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DBHelper = new DatabaseOpenHelper(context);
+                db = DBHelper.getWritableDatabase();
                 Cursor cursor = db.rawQuery("select food_name from Bookmark where ID = '"+item.getID()+"' and food_name = '"+item.getFood_name()+"'",null);
                 if(cursor.getCount()!=0){
                     db.execSQL("delete from Bookmark where ID = '"+item.getID()+"' and food_name = '"+item.getFood_name()+"'");
@@ -116,7 +118,7 @@ public class CustomAdapter2 extends BaseAdapter{
         //현재 선택된 View에 데이터 삽입
         food_image.setImageResource(item.getFood_image());
         food_name.setText(item.getFood_name());
-
+db.close();
         return view;
 
     }

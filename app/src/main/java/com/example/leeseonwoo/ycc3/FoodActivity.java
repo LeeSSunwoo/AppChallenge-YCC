@@ -6,25 +6,20 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,7 +56,7 @@ public class FoodActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String food_name = intent.getStringExtra("food_name");
-
+        ImageView imageView = (ImageView)findViewById(R.id.imageView9);
         TextView food = (TextView)findViewById(R.id.textView34);
         //TextView main = (TextView)findViewById(R.id.textView37);
         final TextView weight = (TextView)findViewById(R.id.textView21);
@@ -69,10 +64,18 @@ public class FoodActivity extends AppCompatActivity {
         Button btn = (Button)findViewById(R.id.button5);
         final FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frameLayout2);
 
-        final Cursor cursor = db.rawQuery("select food_name, material from FoodDATA where food_name = '"+food_name+"'",null);
+        GradientDrawable drawable = (GradientDrawable)getDrawable(R.drawable.layout_bg);
+        btn.setBackground(drawable);
+        btn.setClipToOutline(true);
+        imageView.setBackground(drawable);
+        imageView.setClipToOutline(true);
+
+        final Cursor cursor = db.rawQuery("select food_name, material, ImgID from FoodDATA where food_name = '"+food_name+"'",null);
         cursor.moveToFirst();
         name = cursor.getString(cursor.getColumnIndex("food_name"));
+        int img = cursor.getInt(cursor.getColumnIndex("ImgID"));
         food.setText(name);
+        imageView.setImageResource(img);
         String _main = cursor.getString(cursor.getColumnIndex("material"));
         ss = _main.split(", ");
         String[] main = new String[ss.length];
@@ -102,10 +105,10 @@ public class FoodActivity extends AppCompatActivity {
             textViews[i] = new TextView(this);
             textViews[i].setText(main[i]);
             textViews[i].setTextSize(18);
-            textViews[i].setTextColor(Color.BLACK);
+            textViews[i].setTextColor(Color.WHITE);
             //textViews[i].setWidth();
             //textViews[i].setId(Integer.parseInt(""));
-            lp.gravity = Gravity.CENTER;
+            lp.gravity = Gravity.LEFT;
             textViews[i].setLayoutParams(lp);
             material.addView(textViews[i]);
             final int finalI = i;
@@ -122,7 +125,6 @@ public class FoodActivity extends AppCompatActivity {
                             weight_.setText(we[0]);
                         }
                     }
-                    Toast.makeText(FoodActivity.this, s, Toast.LENGTH_SHORT).show();
                     if(frameLayout.getVisibility() == View.INVISIBLE && s.contains("g"))
                         frameLayout.setVisibility(View.VISIBLE);
                     if(!s.contains("g")){
@@ -288,18 +290,18 @@ public class FoodActivity extends AppCompatActivity {
         bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() { //연결됐을 때
             public void onDeviceConnected(String name, String address) {
                 Toast.makeText(getApplicationContext()
-                        , "Connected to " + name + "\n" + address
+                        , "연결되었습니다."
                         , Toast.LENGTH_SHORT).show();
             }
 
             public void onDeviceDisconnected() { //연결해제
                 Toast.makeText(getApplicationContext()
-                        , "Connection lost", Toast.LENGTH_SHORT).show();
+                        , "연결을 해제하였습니다.", Toast.LENGTH_SHORT).show();
             }
 
             public void onDeviceConnectionFailed() { //연결실패
                 Toast.makeText(getApplicationContext()
-                        , "Unable to connect", Toast.LENGTH_SHORT).show();
+                        , "연결을 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -322,9 +324,10 @@ public class FoodActivity extends AppCompatActivity {
         return String.valueOf(1)+"/"+String.valueOf(down/up);
     }
 
-    /*public void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        bt.stopService(); //블루투스 중지
+        bt.stopService();
+        db.close();//블루투스 중지
     }
 
     public void onStart() {
@@ -361,5 +364,5 @@ public class FoodActivity extends AppCompatActivity {
                 finish();
             }
         }
-    }*/
+    }
 }

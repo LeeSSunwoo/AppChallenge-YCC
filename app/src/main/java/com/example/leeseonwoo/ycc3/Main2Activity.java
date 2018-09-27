@@ -9,7 +9,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
@@ -22,9 +21,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.widget.SearchView;
@@ -57,21 +56,36 @@ public class Main2Activity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        bt = new BluetoothSPP(this);
         weight = (TextView)findViewById(R.id.weight_text);
-        bt = new BluetoothSPP(this); //Initializing
+         //Initializing
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar() ;
 
-        ab.setIcon(R.drawable.yccb) ;
+        /*ab.setIcon(R.drawable.yccb) ;
         ab.setDisplayUseLogoEnabled(true) ;
-        ab.setDisplayShowHomeEnabled(true) ;
+        ab.setDisplayShowHomeEnabled(true) ;*/
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.main_layout);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         GridView gridView = (GridView)findViewById(R.id.random_reco);
         ImageView imageView2 = (ImageView)findViewById(R.id.imageView3);
         GradientDrawable drawable = (GradientDrawable)getDrawable(R.drawable.layout_bg);
         imageView2.setBackground(drawable);
         imageView2.setClipToOutline(true);
+
+        /*if (!bt.isBluetoothAvailable()) { //블루투스 사용 불가
+            Toast.makeText(getApplicationContext()
+                    , "Bluetooth is not available"
+                    , Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else{
+            Toast.makeText(this, "블루투스 사용가능", Toast.LENGTH_SHORT).show();
+        }*/
+//        Toast.makeText(this, String.valueOf(bt.isBluetoothEnabled()), Toast.LENGTH_SHORT).show();
 
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
@@ -103,7 +117,6 @@ public class Main2Activity extends AppCompatActivity
 
         ImageView imageView = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.imageView);
         nickname = (TextView) navigationView.getHeaderView(0).findViewById(R.id.name_edit2);
-        TextView email_text = (TextView)navigationView.getHeaderView(0).findViewById(R.id.textView);
         ImageView login_nav = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.nav_login);
         list_title = new TextView[3];
         listView_ = new ListView[3];
@@ -113,6 +126,19 @@ public class Main2Activity extends AppCompatActivity
         listView_[0] = (ListView)findViewById(R.id.list1);
         listView_[1] = (ListView)findViewById(R.id.list2);
         listView_[2] = (ListView)findViewById(R.id.list3);
+        LinearLayout linearLayout1 = (LinearLayout)findViewById(R.id.linear1);
+        LinearLayout linearLayout2 = (LinearLayout)findViewById(R.id.linear2);
+        LinearLayout linearLayout3 = (LinearLayout)findViewById(R.id.linear3);
+        LinearLayout linearLayout4 = (LinearLayout)findViewById(R.id.linear4);
+        linearLayout1.setBackground(drawable);
+        linearLayout1.setClipToOutline(true);
+        linearLayout2.setBackground(drawable);
+        linearLayout2.setClipToOutline(true);
+        linearLayout3.setBackground(drawable);
+        linearLayout3.setClipToOutline(true);
+        gridView.setBackground(drawable);
+        gridView.setClipToOutline(true);
+
 
         String[] type = new String[] {"밥", "빵", "면", "고기", "생선", "국", "반찬", "튀김", "스프"};
         intent = getIntent();
@@ -157,11 +183,11 @@ public class Main2Activity extends AppCompatActivity
         if(ID.equals("unknown")) {
 
             login_nav.setImageResource(R.drawable.lock);
-            email_text.setText("로그인이 필요합니다.");
+
         }
         else{
             login_nav.setImageResource(R.drawable.unlock);
-            email_text.setText("");
+
         }
         Random random = new Random();
         int[] random1 = new int[5];
@@ -247,18 +273,18 @@ public class Main2Activity extends AppCompatActivity
         bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() { //연결됐을 때
             public void onDeviceConnected(String name, String address) {
                 Toast.makeText(getApplicationContext()
-                        , "Connected to " + name + "\n" + address
+                        , "연결되었습니다."
                         , Toast.LENGTH_SHORT).show();
             }
 
             public void onDeviceDisconnected() { //연결해제
                 Toast.makeText(getApplicationContext()
-                        , "Connection lost", Toast.LENGTH_SHORT).show();
+                        , "연결을 해제하였습니다.", Toast.LENGTH_SHORT).show();
             }
 
             public void onDeviceConnectionFailed() { //연결실패
                 Toast.makeText(getApplicationContext()
-                        , "Unable to connect", Toast.LENGTH_SHORT).show();
+                        , "연결을 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
         for(int l = 0;l<3;l++) {
@@ -405,12 +431,12 @@ public class Main2Activity extends AppCompatActivity
         return true;
     }
     public void Reset(){
-        //db.execSQL("drop table UserDATA");
-        db.execSQL("drop table FoodDATA");
-        //db.execSQL("create table UserDATA (_id integer PRIMARY KEY autoincrement, ID text, Password text, Name text, Number text, gender integer, Login text);");
-        db.execSQL("CREATE TABLE FoodDATA (_id integer PRIMARY KEY autoincrement," + "  type varchar(2) DEFAULT NULL," + "  food_name varchar(8) DEFAULT NULL," + "  amount varchar(3) DEFAULT NULL," + "  material varchar(299) DEFAULT NULL," + "  process varchar(569) DEFAULT NULL" + ",ImgID bigint);");
-        //db.execSQL("drop table Bookmark");
-        //db.execSQL("create table Bookmark (_id integer PRIMARY KEY autoincrement, ID text, food_name text, ImgID bigint)");
+        db.execSQL("drop table if exists UserDATA");
+        db.execSQL("drop table if exists FoodDATA");
+        db.execSQL("drop table if exists Bookmark");
+        db.execSQL("create table if not exists Bookmark (_id integer PRIMARY KEY autoincrement, ID text, food_name text, ImgID bigint)");
+        db.execSQL("create table if not exists UserDATA (_id integer PRIMARY KEY autoincrement, ID text, Password text, Name text, Number text, gender integer, Login text);");
+        db.execSQL("CREATE TABLE if not exists FoodDATA (_id integer PRIMARY KEY autoincrement," + "  type varchar(2) DEFAULT NULL," + "  food_name varchar(8) DEFAULT NULL," + "  amount varchar(3) DEFAULT NULL," + "  material varchar(299) DEFAULT NULL," + "  process varchar(569) DEFAULT NULL" + ",ImgID bigint);");
         db.execSQL("INSERT INTO FoodDATA (type, food_name, amount, material, process, ImgID) VALUES\n" +
                 "('한식,면,반찬', '잡채', '4인분', '당면(!250?!g), 물 !6?!컵, 당근 !1?!개, 다진마늘 !1?!작은술(약 !5?!g), 소금 !1/2?!작은술(약 !2.5?!g), 깨소금 !1/2?!작은술(약 !2.5?!g), 소고기(등심) !120?!g, 양파 !1?!개, 파 !3?!쪽, 참기름 !1?!작은술(약 !5?!g), 후추 !1/4?!작은술(약 !0.6?!g)', '1. 끓는 물에 당면을 10-12분 정도 부드럽고 투명해질때까지 삶아준다.\n2. 양파랑 당근은 길게 채썰고 파는 5cm 길이로 잘라준다.\n3. 삶아진 당면을 체에 걸러서 물기를 빼준 후 2-3번 가위로 잘라준다.\n4. 고기는 후라이팬에 기름을 두르고 가늘게 썰어서 다진마늘, 소금, 후추를 넣고 볶아준다.\n5. 후라이팬에 기름을 두르고 양파, 당근, 파를 소금과 후추로 간을 하면서 각각 따로 볶아준다.\n6. 삶은 당면을 큰 그릇에 담고 볶은 고기와 볶은 야채를 넣고 골고루 무친다.\n7. 완성된 잡채 그릇에 담으면 완성.',"+R.drawable.japche+"),"+
                 "('한식,고기,반찬', '불고기', '4인분', '소고기(등심 또는 안심) !500?!g, 양파 !2?!개(!200?!g), 대파 !1?!대(!20?!g), 팽이버섯(!50?!g), 곁들임 채소(상추외 잎채소 !100?!g, 풋고추 !2?!개, 깐마늘 !5?!쪽), 쌈장 !2?!TS(!42?!g), 불고기 양념장: 간장 !4?!TS(!72?!g), 후춧가루 !1.4?!ts(!0.6?!g), 배즙 !2?!TS(!30?!g), 생강즙 !1?!TS(!16?!g), 설탕 !4?!TS(!48?!g), 물엿 !2?!TS(!38?!g), 다진 파 !1?!TS(!14?!g), 다진 마늘 !1/2?!TS(!8?!g), 깨소금 !1/2?!TS(!3?!g), 참기름 !1?!TS(!13?!g)', '1. 소고기는 등심이나 안심의 연한 부분을 골라 얇게 썰어 준비한다.\n2. 소고기를 배즙과 설탕, 생강즙에 버무려 재어 놓은 다음, 나머지 양념 재료를 넣고 간이 고루 베게 주물러 30분 이상 재어 둔다.\n3. 대파는 0.5cm 두께로 어슷 썰고, 양파는 0.3cm 두께로 채 썬다. 팽이버섯은 밑동을 잘라 준비한다.\n4. 뜨겁게 달군 팬에 고기와 준비한 채소를 넣고 볶는다.\n5. 곁들임 채소(상추, 깻잎 등의 잎 채소, 풋고추, 마늘)를 준비하여 쌈장과 함께 곁들이면 완성.',"+R.drawable.bulgogi+"),"+
@@ -438,7 +464,10 @@ public class Main2Activity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         if(!ID.equals("unknown")) {
-            Cursor cursor = db.rawQuery("select Name from UserDATA where ID = '" + ID + "'", null);
+            Intent intent01 = getIntent();
+            ID = intent01.getStringExtra("ID");
+            Log.d("id check",ID);
+            Cursor cursor = db.rawQuery("select * from UserDATA where ID = '" + ID + "'", null);
             cursor.moveToFirst();
             String name = cursor.getString(cursor.getColumnIndex("Name"));
             cursor.close();
@@ -449,9 +478,10 @@ public class Main2Activity extends AppCompatActivity
             customAdapter.notifyDataSetChanged();
         }
     }
-    /*public void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        bt.stopService(); //블루투스 중지
+        bt.stopService();
+        db.close();//블루투스 중지
     }
 
     public void onStart() {
@@ -486,5 +516,5 @@ public class Main2Activity extends AppCompatActivity
                 finish();
             }
         }
-    }*/
+    }
 }

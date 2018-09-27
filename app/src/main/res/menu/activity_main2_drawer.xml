@@ -8,26 +8,31 @@
             android:id="@+id/nav_book"
             android:icon="@drawable/btn_star_on"
             android:title="내 즐겨찾기"/>
-        <item
-            android:id="@+id/k_food"
-            android:icon="@drawable/ko_food"
-            android:title="한식" />
-        <item
-            android:id="@+id/u_food"
-            android:icon="@drawable/us_food"
-            android:title="양식" />
-        <item
-            android:id="@+id/c_food"
-            android:icon="@drawable/ch_food"
-            android:title="중식" />
-        <item
-            android:id="@+id/j_food"
-            android:icon="@drawable/jp_food"
-            android:title="일식" />
+        <item android:title="나라별">
+            <menu>
+                <item
+                    android:id="@+id/k_food"
+                    android:icon="@drawable/ko_food"
+                    android:title="한식" />
+                <item
+                    android:id="@+id/u_food"
+                    android:icon="@drawable/us_food"
+                    android:title="양식" />
+                <item
+                    android:id="@+id/c_food"
+                    android:icon="@drawable/ch_food"
+                    android:title="중식" />
+                <item
+                    android:id="@+id/j_food"
+                    android:icon="@drawable/jp_food"
+                    android:title="일식" />
+            </menu>
+        </item>
+
 
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="종류별">
         <menu>
             <item
                 android:id="@+id/noodle"

@@ -3,13 +3,9 @@ package com.example.leeseonwoo.ycc3;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -145,5 +141,11 @@ public class LoginActivity extends AppCompatActivity {
                 "('중식,튀김', '깐풍만두', '2인분', '냉동 만두 !10?!개, 홍고추 !2?!개, 청고추 !2?!개, 대파 !1?!대, 마늘 !3?!쪽, 물 !4?!큰술(약 !60?!g), 식초 !2?!큰술(약 !30?!g), 설탕 !1?!큰술(약 !12?!g), 굴 소스 !1?!큰술(약 !15?!g), 간장 !2?!큰술(약 !30?!g), 식용유 !2?!큰술(약 !30?!g)', '1. 고추를 반으로 갈라 씨를 빼고 작은 네모 모양으로 잘라준다.\n2. 마늘은 편으로 썰고 대파는 송송 썰어준다.\n3. 그릇에 물, 식초, 간장, 설탕, 굴 소스를 넣고 잘 섞어주어 양념장을 만든다.\n4. 달군 팬에 식용유를 두르고 만두를 올린다.\n5. 센 불에서 겉을 노릇하게 익힌 다음 불을 줄여 마저 만두를 익혀준다.\n6. 펜에 기름을 다시 두르고 마늘, 대파, 고추를 넣고 센 불에 볶아준다.\n7. 좀 전에 섞어둔 양념장을 팬에 붓고 반 정도 줄어들 때까지 센 불을 유지하며 끓여준다.\n8. 소스가 바글바글 끟으면 구운 만두를 넣어 양념을 골고루 묻혀주면 완성.',"+R.drawable.gganpungmandu+"),"+
                 "('중식,밥', '볶음밥', '1인분', '즉석밥 !1?!개, 계란 !2?!개, 대파 흰부분 !1?1뿌리, 당근 !1/4?!개, 양송이 버섯 !1?!개, 고추 !2?!개, 소금 약간, 포도씨유 !2?!큰술(약 !30?!g)', '1. 대파, 당근, 고추, 양송이 버섯을 잘게 썰어준다.\n2. 팬을 달구고 기름을 살짝 두른 후 계란물을 붓고 익기 전에 저어준다.\n3. 저어주다가 스크램블에그가 만들어지면 다른 그릇에 잠시 옮겨준다.\n4. 다시 팬에 기름을 두르고 대파를 먼저 넣어 파기름을 낸다.\n5. 파향이 올라오면 채소들을 넣고 바짝 볶아준다.\n6. 채소들의 숨이 죽으면 밥을 넣고 고루 볶아준다.\n7. 밥이 다 섞였으면 스크램블에그를 넣어 고루 섞어주면 완성.',"+R.drawable.bokkeumbob+"),"+
                 "('중식,밥,반찬', 'm마파두부', '2인분', '두부 !1?!모, 다진마늘 !2?!큰술(약 !30?!g), 다진돼지고기 !1/4?!컵, 썬 대파 !1/4?!컵, 다진양파 !1/2?!컵, 고춧가루 !1/3?!컵, 설탕 !1/3?!컵, 간장 !1?!큰술(약 !15?!g), 된장 !1/2?!큰술(약 !7?!g), 물 !1?!컵, 전분물 !2?!큰술(약 !30?!g)', '1. 두부 한 모를 깍둑썬다.\n2. 식용유를 두른 팬에 다진 마늘, 다진 돼지고기, 다진 양파, 대파를 넣고 먼저 볶아준다.\n3. 고기가 익으면 고춧가루, 설탕, 간장, 된장, 물을 넣어 양념장을 만든다.\n4. 만들어진 양념장에 깍둑 썬 두부를 넣고 끓이다가 전분물을 넣고 농도가 잡힐 때 까지 빨리 섞은 뒤 가스불을 끈다. (전분물을 넣은 상태에서 오랫동안 끓이면 전분물끼리 뭉치기 때문에 가스불을 꺼줘야 한다.)\n5. 참기름을 한바퀴 둘러주면 완성.\n',"+R.drawable.mapadubu+");");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
     }
 }

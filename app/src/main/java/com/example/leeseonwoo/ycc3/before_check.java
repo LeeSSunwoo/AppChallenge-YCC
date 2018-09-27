@@ -37,22 +37,24 @@ public class before_check extends Fragment{
             @Override
             public void onClick(View view) {
                 String PW = pw.getText().toString();
+                if(!PW.isEmpty()) {
 
-                Cursor cursor = db.rawQuery("select ID from UserDATA where Password = '"+PW+"'", null);
-                cursor.moveToFirst();
-                if(ID.equals(cursor.getString(cursor.getColumnIndex("ID")))){
-                    Fragment fragment = new EditData();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("ID",ID);
-                    fragment.setArguments(bundle);
-                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.myinfo_frame, fragment);
-                    fragmentTransaction.commit();
+                    Cursor cursor = db.rawQuery("select ID from UserDATA where Password = '" + PW + "'", null);
+                    cursor.moveToFirst();
+                    if (ID.equals(cursor.getString(cursor.getColumnIndex("ID")))) {
+                        Fragment fragment = new EditData();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("ID", ID);
+                        fragment.setArguments(bundle);
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.myinfo_frame, fragment);
+                        fragmentTransaction.commit();
+                    } else {
+                        Toast.makeText(getContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    cursor.close();
                 }
-                else{
-                    Toast.makeText(getContext(),"비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-                }
-                cursor.close();
+                else Toast.makeText(getContext(),"비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
             }
         });
 

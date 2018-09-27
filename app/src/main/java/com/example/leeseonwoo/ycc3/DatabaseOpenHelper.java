@@ -22,13 +22,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable1 = "create table "+TABLE_NAME1+" (_id integer PRIMARY KEY autoincrement, ID text, Password text, Name text, Number text, gender integer, Login text);";
-        String createTable2 = "CREATE TABLE FoodDATA (_id integer PRIMARY KEY autoincrement," + "  type varchar(2) DEFAULT NULL," + "  food_name varchar(8) DEFAULT NULL," + "  amount varchar(3) DEFAULT NULL," + "  material varchar(299) DEFAULT NULL," + "  process varchar(569) DEFAULT NULL" + ",ImgID bigint);";
-        String createTable3 = "create table Bookmark (_id integer PRIMARY KEY autoincrement, ID text, food_name text, ImgID bigint)";
         try{
-            db.execSQL(createTable1);
-            db.execSQL(createTable2);
-            db.execSQL(createTable3);
+            db.execSQL("create table Bookmark (_id integer PRIMARY KEY autoincrement, ID text, food_name text, ImgID bigint)");
+            db.execSQL("create table UserDATA (_id integer PRIMARY KEY autoincrement, ID text, Password text, Name text, Number text, gender integer, Login text);");
+            db.execSQL("CREATE TABLE FoodDATA (_id integer PRIMARY KEY autoincrement," + "  type varchar(2) DEFAULT NULL," + "  food_name varchar(8) DEFAULT NULL," + "  amount varchar(3) DEFAULT NULL," + "  material varchar(299) DEFAULT NULL," + "  process varchar(569) DEFAULT NULL" + ",ImgID bigint);");
             db.execSQL("INSERT INTO FoodDATA (type, food_name, amount, material, process, ImgID) VALUES\n" +
                     "('한식,면,반찬', '잡채', '4인분', '당면(!250?!g), 물 !6?!컵, 당근 !1?!개, 다진마늘 !1?!작은술(약 !5?!g), 소금 !1/2?!작은술(약 !2.5?!g), 깨소금 !1/2?!작은술(약 !2.5?!g), 소고기(등심) !120?!g, 양파 !1?!개, 파 !3?!쪽, 참기름 !1?!작은술(약 !5?!g), 후추 !1/4?!작은술(약 !0.6?!g)', '1. 끓는 물에 당면을 10-12분 정도 부드럽고 투명해질때까지 삶아준다.\n2. 양파랑 당근은 길게 채썰고 파는 5cm 길이로 잘라준다.\n3. 삶아진 당면을 체에 걸러서 물기를 빼준 후 2-3번 가위로 잘라준다.\n4. 고기는 후라이팬에 기름을 두르고 가늘게 썰어서 다진마늘, 소금, 후추를 넣고 볶아준다.\n5. 후라이팬에 기름을 두르고 양파, 당근, 파를 소금과 후추로 간을 하면서 각각 따로 볶아준다.\n6. 삶은 당면을 큰 그릇에 담고 볶은 고기와 볶은 야채를 넣고 골고루 무친다.\n7. 완성된 잡채 그릇에 담으면 완성.',"+R.drawable.japche+"),"+
                     "('한식,고기,반찬', '불고기', '4인분', '소고기(등심 또는 안심) !500?!g, 양파 !2?!개(!200?!g), 대파 !1?!대(!20?!g), 팽이버섯(!50?!g), 곁들임 채소(상추외 잎채소 !100?!g, 풋고추 !2?!개, 깐마늘 !5?!쪽), 쌈장 !2?!TS(!42?!g), 불고기 양념장: 간장 !4?!TS(!72?!g), 후춧가루 !1.4?!ts(!0.6?!g), 배즙 !2?!TS(!30?!g), 생강즙 !1?!TS(!16?!g), 설탕 !4?!TS(!48?!g), 물엿 !2?!TS(!38?!g), 다진 파 !1?!TS(!14?!g), 다진 마늘 !1/2?!TS(!8?!g), 깨소금 !1/2?!TS(!3?!g), 참기름 !1?!TS(!13?!g)', '1. 소고기는 등심이나 안심의 연한 부분을 골라 얇게 썰어 준비한다.\n2. 소고기를 배즙과 설탕, 생강즙에 버무려 재어 놓은 다음, 나머지 양념 재료를 넣고 간이 고루 베게 주물러 30분 이상 재어 둔다.\n3. 대파는 0.5cm 두께로 어슷 썰고, 양파는 0.3cm 두께로 채 썬다. 팽이버섯은 밑동을 잘라 준비한다.\n4. 뜨겁게 달군 팬에 고기와 준비한 채소를 넣고 볶는다.\n5. 곁들임 채소(상추, 깻잎 등의 잎 채소, 풋고추, 마늘)를 준비하여 쌈장과 함께 곁들이면 완성.',"+R.drawable.bulgogi+"),"+

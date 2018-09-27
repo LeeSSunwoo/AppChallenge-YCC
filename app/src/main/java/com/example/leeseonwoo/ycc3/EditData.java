@@ -73,4 +73,10 @@ public class EditData extends Fragment {
         cursor.close();
         return view;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        db.close();
+    }
 }

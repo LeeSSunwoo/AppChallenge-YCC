@@ -3,37 +3,25 @@ package com.example.leeseonwoo.ycc3;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import static android.speech.tts.TextToSpeech.ERROR;
-
-
-import java.util.Locale;
 
 public class RecipeActivity extends AppCompatActivity {
     DatabaseOpenHelper DBHelper;
@@ -48,6 +36,8 @@ public class RecipeActivity extends AppCompatActivity {
     TextView textView;
     ImageView pre_Img, next_Img;
     int endnum;
+    Button start_timer;
+    Spinner spinner,spinner2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,36 +83,27 @@ public class RecipeActivity extends AppCompatActivity {
             }
         });
 
-        /*tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != ERROR) {
-                    // 언어를 선택한다.
-                    tts.setLanguage(Locale.KOREAN);
-                }
-            }
-        });
-        tts.speak(ss[num],TextToSpeech.QUEUE_FLUSH,null);*/
-
         Button btn = (Button)findViewById(R.id.button6);
         timeo = (TextView)findViewById(R.id.textView40);
         Button btn_timer = (Button)findViewById(R.id.button7);
-        Button start_timer = (Button)findViewById(R.id.button8);
-        Button pause = (Button)findViewById(R.id.button9);
+        start_timer = (Button)findViewById(R.id.button8);
         Button stop = (Button)findViewById(R.id.button10);
         final FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frameLayout);
 
         String[] arr = getResources().getStringArray(R.array.time);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,arr);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner spinner = (Spinner)findViewById(R.id.spinner);
-        Spinner spinner2 = (Spinner)findViewById(R.id.spinner2);
+        spinner = (Spinner)findViewById(R.id.spinner);
+        spinner2 = (Spinner)findViewById(R.id.spinner2);
         spinner.setAdapter(arrayAdapter);
         spinner2.setAdapter(arrayAdapter);
+        spinner.getBackground().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
+        spinner2.getBackground().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((TextView)adapterView.getChildAt(0)).setTextColor(Color.WHITE);
                 m[0] = adapterView.getItemAtPosition(i).toString();
             }
 
@@ -135,6 +116,7 @@ public class RecipeActivity extends AppCompatActivity {
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((TextView)adapterView.getChildAt(0)).setTextColor(Color.WHITE);
                 m[1] = adapterView.getItemAtPosition(i).toString();
             }
 
@@ -164,24 +146,33 @@ public class RecipeActivity extends AppCompatActivity {
         start_timer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int sec = Integer.parseInt(m[0])*60+Integer.parseInt(m[1]);
-                Toast.makeText(RecipeActivity.this, String.valueOf(sec), Toast.LENGTH_SHORT).show();
-                countDownTimer(sec);
-                countDownTimer.start();
-            }
-        });
-
-        pause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+                if(start_timer.getText().toString().equals("타이머 시작")) {
+                    start_timer.setText("일시정지");
+                    int sec = Integer.parseInt(m[0]) * 60 + Integer.parseInt(m[1]);
+                    Toast.makeText(RecipeActivity.this, String.valueOf(sec), Toast.LENGTH_SHORT).show();
+                    countDownTimer(sec);
+                    countDownTimer.start();
+                    spinner.setSelection(0);
+                    spinner2.setSelection(0);
+                }
+                else if(start_timer.getText().toString().equals("일시정지")){
+                    start_timer.setText("타이머 시작");
+                    String[] time = timeo.getText().toString().split(" : ");
+                    m[0]=time[0];
+                    m[1]=time[1];
+                    countDownTimer.cancel();
+                }
             }
         });
 
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                countDownTimer.cancel();
+                timeo.setText("00 : 00");
+                start_timer.setText("타이머 시작");
+                m[0]="00";
+                m[1]="00";
             }
         });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -227,6 +218,7 @@ public class RecipeActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 timeo.setText("00 : 00");
+                start_timer.setText("타이머 시작");
                 Toast.makeText(RecipeActivity.this, "끝!", Toast.LENGTH_SHORT).show();
             }
 
@@ -269,5 +261,6 @@ public class RecipeActivity extends AppCompatActivity {
             countDownTimer.cancel();
         } catch (Exception e) {}
         countDownTimer=null;
+        db.close();
     }
 }

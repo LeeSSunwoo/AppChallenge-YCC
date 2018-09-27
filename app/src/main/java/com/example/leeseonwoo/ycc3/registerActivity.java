@@ -1,23 +1,15 @@
 package com.example.leeseonwoo.ycc3;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 public class registerActivity extends AppCompatActivity {
@@ -134,5 +126,11 @@ public class registerActivity extends AppCompatActivity {
     public int overlapCheck(String _id){
         Cursor cursor = db.rawQuery("select * from UserDATA where ID = '"+_id+"'",null);
         return cursor.getCount();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
     }
 }

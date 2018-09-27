@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".RecipeActivity"
-    tools:showIn="@layout/activity_recipe">
+    tools:showIn="@layout/activity_recipe"
+    android:background="#ff7e12">
     <TextView
         android:id="@+id/textView32"
         android:layout_width="0dp"
@@ -19,12 +20,15 @@
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:background="@drawable/button_img"
         android:text="나가기"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -33,11 +37,11 @@
         android:id="@+id/frameLayout"
         android:layout_width="395dp"
         android:layout_height="130dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
+        app:layout_constraintBottom_toTopOf="@+id/textView38"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
@@ -55,38 +59,41 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="00 : 00"
-                android:textSize="30sp"
+                android:textColor="@android:color/background_light"
+                android:textSize="36sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/button8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="타이머 시작"
-                app:layout_constraintBottom_toTopOf="@+id/textView40"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <Button
-                android:id="@+id/button9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="일시정지"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/button8" />
+                android:background="@drawable/button_img"
+                android:text="타이머 시작"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView40" />
 
             <Button
                 android:id="@+id/button10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_width="90dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_img"
                 android:text="정지"
-                app:layout_constraintStart_toStartOf="@+id/button9"
-                app:layout_constraintTop_toBottomOf="@+id/button9" />
+                android:textColor="@android:color/holo_orange_dark"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView40"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Spinner
                 android:id="@+id/spinner"
@@ -94,8 +101,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/textView40"
-                app:layout_constraintEnd_toStartOf="@+id/textView27" />
+                app:layout_constraintEnd_toStartOf="@+id/textView27"
+                app:layout_constraintStart_toEndOf="@+id/button10" />
 
             <Spinner
                 android:id="@+id/spinner2"
@@ -104,65 +113,65 @@
                 android:layout_marginBottom="24dp"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/textView40"
-                app:layout_constraintEnd_toStartOf="@+id/textView21" />
+                app:layout_constraintEnd_toStartOf="@+id/textView21"
+                app:layout_constraintStart_toEndOf="@+id/textView27" />
 
             <TextView
                 android:id="@+id/textView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:text="초"
-                android:textSize="18sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/button8"
-                app:layout_constraintEnd_toStartOf="@+id/button8" />
+                android:textColor="@android:color/background_light"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView40"
+                app:layout_constraintEnd_toStartOf="@+id/button8"
+                app:layout_constraintStart_toEndOf="@+id/spinner2"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
                 android:text="분"
-                android:textSize="18sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView21"
-                app:layout_constraintEnd_toStartOf="@+id/spinner2" />
+                android:textColor="@android:color/background_light"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView40"
+                app:layout_constraintEnd_toStartOf="@+id/spinner2"
+                app:layout_constraintStart_toEndOf="@+id/spinner"
+                app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
     </FrameLayout>
 
     <Button
         android:id="@+id/button7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="90dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="36dp"
+        android:background="@drawable/button_img"
         android:text="타이머"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout"
-        app:layout_constraintEnd_toEndOf="@+id/frameLayout" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView32"
-        app:srcCompat="@drawable/plate" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView38"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-        app:layout_constraintEnd_toEndOf="@+id/imageView6"
-        app:layout_constraintStart_toStartOf="@+id/imageView6"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/button6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
     <ImageView
@@ -171,7 +180,7 @@
         android:layout_height="100dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/carrot" />
 
@@ -181,7 +190,7 @@
         android:layout_height="100dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/gaji" />
 
