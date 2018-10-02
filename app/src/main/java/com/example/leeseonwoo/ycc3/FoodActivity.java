@@ -29,6 +29,7 @@ import app.akexorcist.bluetotohspp.library.BluetoothState;
 import app.akexorcist.bluetotohspp.library.DeviceList;
 
 public class FoodActivity extends AppCompatActivity {
+    int state=0;
     DatabaseOpenHelper DBHelper;
     SQLiteDatabase db;
     String name;
@@ -43,6 +44,7 @@ public class FoodActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         bt = new BluetoothSPP(this);
+
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
         db = DBHelper.getWritableDatabase();
 
@@ -56,6 +58,7 @@ public class FoodActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String food_name = intent.getStringExtra("food_name");
+        final String ID = intent.getStringExtra("ID");
         ImageView imageView = (ImageView)findViewById(R.id.imageView9);
         TextView food = (TextView)findViewById(R.id.textView34);
         //TextView main = (TextView)findViewById(R.id.textView37);
@@ -63,6 +66,7 @@ public class FoodActivity extends AppCompatActivity {
         final TextView weight_ = (TextView)findViewById(R.id.textView27);
         Button btn = (Button)findViewById(R.id.button5);
         final FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frameLayout2);
+        TextView textView = (TextView)findViewById(R.id.textView2);
 
         GradientDrawable drawable = (GradientDrawable)getDrawable(R.drawable.layout_bg);
         btn.setBackground(drawable);
@@ -70,11 +74,12 @@ public class FoodActivity extends AppCompatActivity {
         imageView.setBackground(drawable);
         imageView.setClipToOutline(true);
 
-        final Cursor cursor = db.rawQuery("select food_name, material, ImgID from FoodDATA where food_name = '"+food_name+"'",null);
+        final Cursor cursor = db.rawQuery("select food_name, material, ImgID, amount from FoodDATA where food_name = '"+food_name+"'",null);
         cursor.moveToFirst();
         name = cursor.getString(cursor.getColumnIndex("food_name"));
-        int img = cursor.getInt(cursor.getColumnIndex("ImgID"));
+        final int img = cursor.getInt(cursor.getColumnIndex("ImgID"));
         food.setText(name);
+        textView.setText(cursor.getString(cursor.getColumnIndex("amount")));
         imageView.setImageResource(img);
         String _main = cursor.getString(cursor.getColumnIndex("material"));
         ss = _main.split(", ");
@@ -121,7 +126,9 @@ public class FoodActivity extends AppCompatActivity {
                         Log.d("asdfasdfasdfasdfasdf",s);
                         if(main[i].contains("?") && main[i+1].contains("g")){
                             String[] we = main[i].split("\\?");
-
+                            //if(state==1) {
+                                bt.send(we[0], true);
+                            //}
                             weight_.setText(we[0]);
                         }
                     }
@@ -161,11 +168,16 @@ public class FoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent1 = new Intent(getApplicationContext(),RecipeActivity.class);
                 intent1.putExtra("food_name", name);
+                intent1.putExtra("ID",ID);
+                intent1.putExtra("ImgID",img);
                 startActivity(intent1);
                 cursor.close();
                 finish();
-                Log.d("check finish","food is ended");
-                /*double rate = 0.5;
+                /*Log.d("check finish","food is ended");
+                String[] aa1 = ss[0].split("!");
+                String[] bb = aa1[1].split("\\?");
+                double rate = 300/Double.parseDouble(String.valueOf(bb[0]));
+
                 String[] result = new String[ss.length];
                 String middle;
                 for(int k=0;k<ss.length;k++){
@@ -230,9 +242,17 @@ public class FoodActivity extends AppCompatActivity {
 
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
             public void onDataReceived(byte[] data, String message) {
-                String[] rs = message.split(".");
+                String[] rs = new String[2];
+                if(message.contains(".")) {
+                    rs = message.split("\\.");
+
+                }else{
+                    rs[0] = message;
+                }
                 weight.setText(rs[0]);
-                double rate = Double.parseDouble(rs[0])/Double.parseDouble(String.valueOf(ss[0].split("!")[1].split("\\?")));
+                String[] aa1 = ss[0].split("!");
+                String[] bb = aa1[1].split("\\?");
+                double rate = Double.parseDouble(rs[0])/Double.parseDouble(String.valueOf(bb[0]));
                 String[] result = new String[ss.length];
                 String middle;
                 for(int k=0;k<ss.length;k++){
@@ -326,7 +346,8 @@ public class FoodActivity extends AppCompatActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        bt.stopService();
+        //bt.stopService();
+        state=0;
         db.close();//블루투스 중지
     }
 
@@ -341,11 +362,14 @@ public class FoodActivity extends AppCompatActivity {
                 bt.startService(BluetoothState.DEVICE_OTHER); //DEVICE_ANDROID는 안드로이드 기기 끼리
                 setup();
             }
+            else{
+                state=0;
+            }
         }
     }
 
     public void setup() {
-
+        state=1;
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -36,7 +36,7 @@ public class FoodListActivity extends AppCompatActivity {
         GridView listView = (GridView)findViewById(R.id.listview);
         Intent food_type = getIntent();
         String type = food_type.getStringExtra("type");
-        String ID = food_type.getStringExtra("ID");
+        final String ID = food_type.getStringExtra("ID");
         Cursor cursor;
 
         if(type.equals("즐찾")) {
@@ -69,6 +69,7 @@ public class FoodListActivity extends AppCompatActivity {
                 ListViewItem item = (ListViewItem) adapterView.getItemAtPosition(i);
                 Intent intent = new Intent(getApplicationContext(), FoodActivity.class);
                 intent.putExtra("food_name",item.getFood_name());
+                intent.putExtra("ID",ID);
                 startActivity(intent);
             }
         });

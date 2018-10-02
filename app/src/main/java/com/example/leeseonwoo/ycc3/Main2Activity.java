@@ -61,11 +61,6 @@ public class Main2Activity extends AppCompatActivity
          //Initializing
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar() ;
-
-        /*ab.setIcon(R.drawable.yccb) ;
-        ab.setDisplayUseLogoEnabled(true) ;
-        ab.setDisplayShowHomeEnabled(true) ;*/
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.main_layout);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -76,7 +71,7 @@ public class Main2Activity extends AppCompatActivity
         imageView2.setBackground(drawable);
         imageView2.setClipToOutline(true);
 
-        /*if (!bt.isBluetoothAvailable()) { //블루투스 사용 불가
+        if (!bt.isBluetoothAvailable()) { //블루투스 사용 불가
             Toast.makeText(getApplicationContext()
                     , "Bluetooth is not available"
                     , Toast.LENGTH_SHORT).show();
@@ -84,7 +79,7 @@ public class Main2Activity extends AppCompatActivity
         }
         else{
             Toast.makeText(this, "블루투스 사용가능", Toast.LENGTH_SHORT).show();
-        }*/
+        }
 //        Toast.makeText(this, String.valueOf(bt.isBluetoothEnabled()), Toast.LENGTH_SHORT).show();
 
         DBHelper = new DatabaseOpenHelper(getApplicationContext());
@@ -250,6 +245,7 @@ public class Main2Activity extends AppCompatActivity
                 String name = item.getFood_name();
                 Intent Gotofood = new Intent(getApplicationContext(),FoodActivity.class);
                 Gotofood.putExtra("food_name", name);
+                Gotofood.putExtra("ID",ID);
                 startActivity(Gotofood);
             }
         });
@@ -295,6 +291,7 @@ public class Main2Activity extends AppCompatActivity
                     String name = item.getFood_name();
                     Intent Gotofood = new Intent(getApplicationContext(), FoodActivity.class);
                     Gotofood.putExtra("food_name", name);
+                    Gotofood.putExtra("ID",ID);
                     startActivity(Gotofood);
                 }
             });
@@ -480,7 +477,7 @@ public class Main2Activity extends AppCompatActivity
     }
     public void onDestroy() {
         super.onDestroy();
-        bt.stopService();
+        //bt.stopService();
         db.close();//블루투스 중지
     }
 

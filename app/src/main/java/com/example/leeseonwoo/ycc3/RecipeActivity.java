@@ -1,5 +1,7 @@
 package com.example.leeseonwoo.ycc3;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -30,14 +32,15 @@ public class RecipeActivity extends AppCompatActivity {
     TextView timeo;
     private TextToSpeech tts;
     int num,prenum, nextnum;
-    String food_name;
+    String food_name,ID;
     String[] m =new String[2];
     String[] ss;
     TextView textView;
     ImageView pre_Img, next_Img;
-    int endnum;
+    int endnum,ImgID;
     Button start_timer;
     Spinner spinner,spinner2;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class RecipeActivity extends AppCompatActivity {
         db = DBHelper.getWritableDatabase();
 
         Intent intent = getIntent();
+        ImgID = intent.getIntExtra("ImgID",0);
+        ID = intent.getStringExtra("ID");
         food_name = intent.getStringExtra("food_name");
         num = 0;
         Cursor food = db.rawQuery("select * from FoodDATA where food_name = '"+food_name+"'",null);
@@ -129,7 +134,19 @@ public class RecipeActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                if(num==endnum && !ID.equals("unknown")){
+                    AlertDialog.Builder builder=new AlertDialog.Builder(RecipeActivity.this);
+                    builder.setIcon(R.drawable.btn_star_on);
+                    builder.setTitle("즐겨찾기");
+                    builder.setMessage("이 요리가 마음에 드셨다면 즐겨찾기 하세요!");
+                    builder.setPositiveButton("마음에 들어요!", dialogListener);
+                    builder.setNegativeButton("별로였어요.", dialogListener);
+
+                    alertDialog=builder.create();
+                    alertDialog.show();
+                }else{
+                    finish();
+                }
             }
         });
 
@@ -183,6 +200,19 @@ public class RecipeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
     }
+
+    DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            DBHelper = new DatabaseOpenHelper(getApplicationContext());
+            db = DBHelper.getWritableDatabase();
+            if(which==DialogInterface.BUTTON_POSITIVE) {
+                db.execSQL("insert into Bookmark (ID, food_name, ImgID) VALUES ('" + ID + "', '" + food_name + "', " + ImgID + ")");
+                db.close();
+            }
+            finish();
+        }
+    };
 
     private void SetPrevious(int num){
         textView.setText(ss[num]);

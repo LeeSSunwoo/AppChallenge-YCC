@@ -46,7 +46,6 @@ public class SplashActivity extends AppCompatActivity {
                 intent1.putExtra("ID","unknown");
                 startActivity(intent1);
                 db.close();
-                    Toast.makeText(SplashActivity.this, "asdf", Toast.LENGTH_SHORT).show();
                 finish(); }
             }
         }, 2000);
